@@ -1,1 +1,99 @@
 Waterfall - Ethan McFetridge
+
+Requirements analysis and definition
+Course database:
+	-Contains course CRNs, names, times, and the instructor
+	-No listed requirement for # of courses
+User database:
+	-Should work for at least 100 students, 10 instructors, and 1 admin (111 total users)
+All users have:
+	-Attributes: first name, last name, ID
+	-Functions
+		-Setters
+			-Set or change the value of each attribute
+		-Print info
+			-Print all of the user's attributes to the screen
+Three types of users:
+	-Student
+		-Can register for courses
+		-Can see available courses
+		-Can view their own schedule
+	-Instructor
+		-Can see available courses
+		-Can see their own course roster
+	-Admin
+		-Can see "everything"
+			-All course rosters
+			-All student schedules
+			-All available courses
+		-Edit all
+			-Course information
+				-Rosters
+				-ID
+			-Add or remove
+				-Courses
+				-Users
+			-User information
+			-Schedules
+Scheduling system:
+	-Includes multiple semesters
+	-Schedule print-outs
+	-Scheduling preferences?
+		-TODO: Figure out what this requirement entails
+
+System and software design:
+Course database
+	-SQL Lite
+	-Attributes
+		-CRN
+			-Primary key
+			-Integer
+			-Not null
+		-Course name
+			-String
+			-Not null
+		-Times
+			-?
+		-Instructor
+			-ID (pull name from user database?)
+User database
+	-SQL Lite
+		-Attributes
+			-ID
+				-Primary key
+				-Integer
+				-Not null
+			-User type
+				-Char? (S = student; I = instructor; A = admin)
+				-Not null
+			-First name
+				-String
+				-Not null
+			-Last name
+				-String
+				-Not null
+
+Base user class
+	-Attributes
+		-First name
+			-String
+		-Last name
+			-String
+		-ID
+			-Unique integer
+	-Methods
+		-Setters
+		-Print info
+All of the user types (student, instructor, admin) are derived from this class and inherit the attributes + 
+	-Also have their own methods for individual functions (for example, admins have their own functions for editing courses)
+
+Implementation and unit testing:
+Written using C++?
+Test all of the user database with test users on a small scale (10 students, 3 instructors, 1 admin?)
+Test all of the course database functions from an admin user account
+
+Integration and system testing:
+Connect the user and course databases, test all functions
+
+Operation and maintenance:
+Let the system be used for a period of time, and collect feedback on any potential issues.
