@@ -19,4 +19,9 @@ Development and integration
   -Get opinions from outside use and implement new features
   -alerts and modification of scheduling, etc
   -keep stable performance and connection.
+  
+  
+  /* Comments - Santino Nardolillo
+Solid start to include scheduling first, gives good backbone and foundation to build off of for future reference. Also if idea for process model is to be more "visual", having a schedule better fulfills that requirement.
+*/
 
