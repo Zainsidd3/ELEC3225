@@ -1,1 +1,36 @@
 Zain Siddiqi - waterfall method
+Requirements analysis and definition:
+
+Database of users: 100 students, 10 instructors, and 1 admin fewer will be tested
+
+Course database: CRN, course name, times, and instructor 
+
+Three users
+o student – can register, can see available courses and their own schedule.
+o instructor – can see available courses and their own course roster. 
+o admin – can see everything, can edit courses/users/schedules
+-Multiple semester systems, printouts of schedules, and scheduling preferences.
+The whole system must be tested thoroughly.
+
+System and software design
+Course and user database 
+Formatted with sql crn course and time and instructor, etc
+Sql format for student instructor and admin class similar attributes (first name, last name, id etc)
+
+Implementation and unit testing
+C++ code or python
+Testcases will have to be small at first and later expand 4 students, 2 instructors, 1 admin
+Separate admin test case for changing schedules and etc
+
+System testing
+Have it all work and make sure the function works for all things in the code
+
+Operation and Maintenance
+Get an outside use of the system to see if there are any errors.
+
+
+
+
+
+
+

@@ -1,1 +1,37 @@
 Zain Siddiqi - Incremental development 
+
+1st version
+The system should be able to include multiple semesters, print-outs of schedules, and scheduling preferences. 
+ The system as a whole and all components must be tested thoroughly
+Base user class
+  students – can register, can see available courses and their own schedule.
+  instructor – can see available courses and their own course roster.
+  admin – can see everything, can edit courses/users/schedules.
+Students  will be able to see all instructors and classes and create a schedule
+  Display a list of all instructors – ID, first name, last name, CRN
+  Course numbers and CRN, course name, times, and instructor
+ Implement and test these requirements.
+Next version
+Add students and instructor and admin information
+    -Students can have their own schedule view and register 
+    -Can view and update their schedule and also add pre made schedules 
+    -Can view and update instructors and also list of instructors
+Instructors can see their classlist and also view the course schedule
+    -See available courses and edit course roster
+Admin can view everything about each instructor and student 
+    -Edit restricted classes for students and change info for every user
+Next version
+    -Add in system alerts (course not available crn not found, etc)
+Implement and test.
+    Final version
+Add in the functionality to add or drop classes.
+    Implement and test.
+
+
+
+
+
+
+
+
+
