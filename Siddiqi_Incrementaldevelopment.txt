@@ -33,7 +33,9 @@ Not really sure what you meant by pre made schedules on line 17, do you mean som
 For the proposed third version, I think it might be best to work in the alerts as each functionality related to them is implemented, otherwise it might get a bit messy trying to add error handling towards the very end
 */
 
-
+/* Comments - Santino Nardolillo
+Agreed with previous comment, scheduling is solid idea from the start. This way, it allows for us to get a broader understanding of how to approach it without having any specifics regarding course information and further. Unsure on premade schedules. Database information regarding how they will be implemented could also be included, such as how the courses will be listed (ID, Type of User) etc.
+*/
 
 
 
