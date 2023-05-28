@@ -1,1 +1,22 @@
-Zain Siddiqi -  integrate and configure
+The system should be able to include multiple semesters, print-outs of schedules, and scheduling preferences. 
+ The system as a whole and all components must be tested thoroughly
+Base user class
+  students – can register, can see available courses and their own schedule.
+  instructor – can see available courses and their own course roster.
+  admin – can see everything, can edit courses/users/schedules.
+Students  will be able to see all instructors and classes and create a schedule
+  Display a list of all instructors – ID, first name, last name, CRN
+  Course numbers and CRN, course name, times, and instructor
+Implement and test these requirements.
+Database 
+  Python based of MySQL would work to create a strong database
+  Features multiple CPUs  to function making it more fast and reliable
+UI (user interface) - leopard web and another option
+  Leopard web features what we need but can remove all the extra features
+  Financial aid, e-bill, etc. only use the required things 
+  Tknitor is also another option that can be seen for the UI due to Python being implemented already and being an easy-to-understand language. 
+Development and integration
+  -Get opinions from outside use and implement new features
+  -alerts and modification of scheduling, etc
+  -keep stable performance and connection.
+
