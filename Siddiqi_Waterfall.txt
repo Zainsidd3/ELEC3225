@@ -32,7 +32,9 @@ Get an outside use of the system to see if there are any errors.
 Would have liked to see a breakdown of how different components interact - mainly the student/instructor/admin relation (Are they still classes all derived from one base class?)
 */
 
-
+/* Comments - Santino Nardolillo
+Simplified and streamlined waterfall process model, gives good general information. Can be strong baseline to build off of for future use. Would add more information specifically regarding scheduling and how databases will be incorporated.
+*/
 
 
 
