@@ -1,1 +1,67 @@
 Incremental Development - Ethan McFetridge
+
+Incremental
+Requirements specification (same for all 3 models):
+Course database:
+	-Contains course CRNs, names, times, and the instructor
+	-No listed requirement for # of courses
+User database:
+	-Should work for at least 100 students, 10 instructors, and 1 admin (111 total users)
+All users have:
+	-Attributes: first name, last name, ID
+	-Functions
+		-Setters
+			-Set or change the value of each attribute
+		-Print info
+			-Print all of the user's attributes to the screen
+Three types of users:
+	-Student
+		-Can register for courses
+		-Can see available courses
+		-Can view their own schedule
+	-Instructor
+		-Can see available courses
+		-Can see their own course roster
+	-Admin
+		-Can see "everything"
+			-All course rosters
+			-All student schedules
+			-All available courses
+		-Edit all
+			-Course information
+				-Rosters
+				-ID
+			-Add or remove
+				-Courses
+				-Users
+			-User information
+			-Schedules
+Scheduling system:
+	-Includes multiple semesters
+	-Schedule print-outs
+	-Scheduling preferences?
+		-TODO: Figure out what this requirement entails
+
+1st version
+All 3 types of users should have the basic functionality working and visible to themselves
+	-Attributes
+	-First name
+	-Last name
+	-ID
+Can see all available courses
+	-CRN
+	-Course name
+	-Times
+	-Instructor
+
+Next version
+Students should be able to register for courses, admins and instructors should be able to see course rosters
+
+Next version
+Students and instructors should be able to see their complete schedules, admins should be able to see all schedules
+
+Next version
+Admins should be able to view and edit any information in the system
+
+Final version(s)
+Implement all remaining functionality, test with actual users and adjust based on feedback

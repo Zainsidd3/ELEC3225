@@ -1,1 +1,70 @@
 Integrate and Configure - Ethan McFetridge
+
+Integrate and Configure
+Requirements specification (same for all 3 models):
+Course database:
+	-Contains course CRNs, names, times, and the instructor
+	-No listed requirement for # of courses
+User database:
+	-Should work for at least 100 students, 10 instructors, and 1 admin (111 total users)
+All users have:
+	-Attributes: first name, last name, ID
+	-Functions
+		-Setters
+			-Set or change the value of each attribute
+		-Print info
+			-Print all of the user's attributes to the screen
+Three types of users:
+	-Student
+		-Can register for courses
+		-Can see available courses
+		-Can view their own schedule
+	-Instructor
+		-Can see available courses
+		-Can see their own course roster
+	-Admin
+		-Can see "everything"
+			-All course rosters
+			-All student schedules
+			-All available courses
+		-Edit all
+			-Course information
+				-Rosters
+				-ID
+			-Add or remove
+				-Courses
+				-Users
+			-User information
+			-Schedules
+Scheduling system:
+	-Includes multiple semesters
+	-Schedule print-outs
+	-Scheduling preferences?
+		-TODO: Figure out what this requirement entails
+
+Component Analysis
+-Existing software
+	-LeopardWeb
+		-Created by Ellucian Company
+		-Works and meets all of the listed requirements (for students, unknown due to lack of access as an instructor/admin)
+		-Relatively slow due to extra features outside of the requirements for new database
+
+Requirement modifications
+-Modify to be used with less users (100 students, 10 instructors, 1 admin)
+-Separate/remove features not listed in the requirements for new database
+	-E-Bill
+	-Financial aid
+	-Proxy access
+-Revamp UI to be more user-friendly and navigable?
+
+System design
+-Reused parts with minimal modifications
+	-User information database
+	-Course information database
+	-Scheduling systems
+-Remove extra features
+-Performance improvements
+
+Development and integration
+-After switching from LeopardWeb to the modified version, take feedback from users and use it to improve upon the system further
+	-Potentially bringing back old features if requirements are modified, but try to keep improved -performance
