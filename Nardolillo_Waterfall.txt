@@ -57,3 +57,8 @@ Let users use the system, if they need any changes, start again.
 Would like to have a bit more info about the course database (Using SQL/SQLite? If so, what's the datatype and other attributes for each column of the db) 
 The rest looks good, although C++ may be a better option than Python for performances' sake
 */
+
+/* comments - Zain Siddiqi
+I like the breakdown of each of the class from student to admin creates further detail for our model and final project. The requirements are also higly 
+broken down and shown so that it is know what it is that we need to do.
+*/
