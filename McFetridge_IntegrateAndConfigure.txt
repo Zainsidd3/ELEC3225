@@ -68,3 +68,7 @@ System design
 Development and integration
 -After switching from LeopardWeb to the modified version, take feedback from users and use it to improve upon the system further
 	-Potentially bringing back old features if requirements are modified, but try to keep improved -performance
+	
+/* comments - Zain siddiqi
+   I like the overall idea of using leopardweb itself as a backbone to provide all the requirements that we need to meet. We can also improve on leopardweb itself 
+   due to the low server speeds by removing some unnecessary features. */
