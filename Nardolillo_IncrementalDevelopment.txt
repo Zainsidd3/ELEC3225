@@ -22,5 +22,5 @@ And then in the following versions, we add functionality for courses, schedules,
 */
 
 /* Comments - Zain Siddiqi
-I think looking at the requiremnets for each version is a good idea such as seeing wahat wee need and keep adding on to that. the final version should
-also provide user feedback. We should get the opinions on the final version and further implement from their. */
+I think looking at the requirements for each version is a good idea such as seeing wahat we need and keep adding on to that. the final version should
+also provide user feedback. We should get the opinions on the final version and further implement from there. */
