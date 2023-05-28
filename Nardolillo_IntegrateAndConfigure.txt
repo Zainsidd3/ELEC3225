@@ -1,0 +1,55 @@
+Integrate and Configure - Santino Nardolillo
+
+Catalog of Courses:
+	-Has to contain course information. This includes CRN, names, times and the instructor of the course.
+
+Database of Users:
+	-100 students, 10 instructors, 1 admin
+
+All Users:
+	-Attributes
+		-First Name, Last Name, ID
+	-Functions
+		-Set function for each attribute
+		-Print info
+
+User Classes:
+	Students:
+		-Can register
+		-Can see available courses
+		-Can view their own schedule
+
+	Instructors:
+		-Can see available courses
+		-Can see their own course roster
+
+	Admin:
+		-Can see everything
+		-Can edit courses/users/schedules
+
+System should include:
+	-Multiple semesters
+	-Print-out of schedule
+	-Scheduling preferences
+
+Leopardweb
+	-Program is clunky, at times unresponsive and user-unfriendly in its current state
+
+Adjustments
+	-Requirement is to operate with a smaller user base (listed in aforementioned)
+		-100 students
+		-10 instructors
+		-1 admin
+	-Provide a more user-friendly user interface (UI)
+	-Provide the following:
+		-Access to Financial channels
+			-E-Bill
+			-Scholarships
+			-Financial Aid
+			-Payment Plans
+	-Remove unused/ unnecessary or redundant features
+		-In efforts to improve latency, response time
+
+Final Integration
+	-Feedback from customer/ consumer base, revamp and edit accordingly.
+		-If sufficient, plan to reintroduce older features and repeat.
