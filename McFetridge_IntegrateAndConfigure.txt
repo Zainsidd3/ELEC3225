@@ -72,3 +72,7 @@ Development and integration
 /* comments - Zain siddiqi
    I like the overall idea of using leopardweb itself as a backbone to provide all the requirements that we need to meet. We can also improve on leopardweb itself 
    due to the low server speeds by removing some unnecessary features. */
+
+/* Comments - Santino Nardolillo
+Overall solid process model, the inclusion of leopardweb's functionality is a good way to approach the problem directly as this is intended to modify/ replace the existing software. Possible inclusion on methods to "revamp UI to be more user-friendly" could be helpful to further this idea, even if its only a temporary suggestion.
+*/
