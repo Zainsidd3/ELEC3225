@@ -100,4 +100,4 @@ Let the system be used for a period of time, and collect feedback on any potenti
 
 
 /* Comments - Zain Siddiqi I like the overall description and breakdown of each class and all the database this will be a useful roadmap to orgniaze what we need to do.
-   I would say to lower the testcases at first for line 92 to about 4 students and 2 instructors and 1 admin to prevent lots of errors and then increase after for the second test case. other than that this model seems to work best starting from the scheduling system and then beyond */
+I would say to lower the testcases at first for line 92 to about 4 students and 2 instructors and 1 admin to prevent lots of errors and then increase after for the second test case. other than that this model seems to work best starting from the scheduling system and then beyond */
