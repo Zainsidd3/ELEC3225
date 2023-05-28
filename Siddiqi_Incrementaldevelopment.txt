@@ -27,7 +27,11 @@ Implement and test.
 Add in the functionality to add or drop classes.
     Implement and test.
 
-
+/* Comments - Ethan McFetridge
+I really like the idea of starting with the scheduling system and working outwards from there - could help to have a 'big picture' early and then work on the finer details in future versions
+Not really sure what you meant by pre made schedules on line 17, do you mean some type of sample schedule just for testing? Or is it something else that would be part of the final system
+For the proposed third version, I think it might be best to work in the alerts as each functionality related to them is implemented, otherwise it might get a bit messy trying to add error handling towards the very end
+*/
 
 
 

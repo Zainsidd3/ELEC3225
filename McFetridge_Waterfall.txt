@@ -1,6 +1,6 @@
 Waterfall - Ethan McFetridge
 
-Requirements analysis and definition
+Requirements specification (same for all 3 models):
 Course database:
 	-Contains course CRNs, names, times, and the instructor
 	-No listed requirement for # of courses

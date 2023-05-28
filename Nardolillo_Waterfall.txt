@@ -52,3 +52,8 @@ Connect the user and course databases
 
 Operation and maintenance:
 Let users use the system, if they need any changes, start again.
+
+/* Comments - Ethan McFetridge
+Would like to have a bit more info about the course database (Using SQL/SQLite? If so, what's the datatype and other attributes for each column of the db) 
+The rest looks good, although C++ may be a better option than Python for performances' sake
+*/

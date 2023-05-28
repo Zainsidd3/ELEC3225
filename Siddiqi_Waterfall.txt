@@ -28,7 +28,9 @@ Have it all work and make sure the function works for all things in the code
 Operation and Maintenance
 Get an outside use of the system to see if there are any errors.
 
-
+/* Comments - Ethan McFetridge
+Would have liked to see a breakdown of how different components interact - mainly the student/instructor/admin relation (Are they still classes all derived from one base class?)
+*/
 
 
 

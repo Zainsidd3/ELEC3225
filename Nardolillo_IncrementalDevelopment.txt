@@ -14,3 +14,9 @@ Possibly the next step is to create a database for the requested systems.
 Final Version
 (?) Whatever the final assignment requirement is asking of us for the end result.
 Possible final version of the assignment is to have it entirely coded and functional.
+
+/* Comments - Ethan McFetridge
+We should prob have the 1st version here split up into a few iterations
+For example, first version could just have basic functionality for the user database, like being able to view users' information and IDs. 
+And then in the following versions, we add functionality for courses, schedules, etc
+*/
