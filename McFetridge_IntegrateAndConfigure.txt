@@ -56,6 +56,7 @@ Requirement modifications
 	-Financial aid
 	-Proxy access
 -Revamp UI to be more user-friendly and navigable?
+	-TODO: Brainstorm ideas on how to accomplish this
 
 System design
 -Reused parts with minimal modifications

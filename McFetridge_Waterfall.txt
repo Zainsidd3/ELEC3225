@@ -88,8 +88,8 @@ All of the user types (student, instructor, admin) are derived from this class a
 	-Also have their own methods for individual functions (for example, admins have their own functions for editing courses)
 
 Implementation and unit testing:
-Written using C++?
-Test all of the user database with test users on a small scale (10 students, 3 instructors, 1 admin?)
+Written using C++/Python
+Test all of the user database with test users on a small scale (4 students, 2 instructors, 1 admin) 
 Test all of the course database functions from an admin user account
 
 Integration and system testing:
