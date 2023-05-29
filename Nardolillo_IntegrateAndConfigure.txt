@@ -58,3 +58,6 @@ Final Integration
 /* Comments - Ethan McFetridge
 Agreed with the problems with current LeopardWeb, this looks like a good plan to improve upon it. 
 */
+
+/* comments - Zain Siddiqi 
+also agree with the previous comment, leopardweb has minor issues which ruins it along with the UI */
