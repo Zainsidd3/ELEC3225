@@ -53,3 +53,8 @@ Adjustments
 Final Integration
 	-Feedback from customer/ consumer base, revamp and edit accordingly.
 		-If sufficient, plan to reintroduce older features and repeat.
+
+
+/* Comments - Ethan McFetridge
+Agreed with the problems with current LeopardWeb, this looks like a good plan to improve upon it. 
+*/

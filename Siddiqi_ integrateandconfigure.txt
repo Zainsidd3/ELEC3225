@@ -25,3 +25,6 @@ Development and integration
 Solid start to include scheduling first, gives good backbone and foundation to build off of for future reference. Also if idea for process model is to be more "visual", having a schedule better fulfills that requirement.
 */
 
+/* Comments - Ethan McFetridge
+I like the focus on UI, that's the main issue with the current LeopardWeb system in my opinion. I know there have been a few changes to it recently, but it's still pretty unintuitive overall
+*/
