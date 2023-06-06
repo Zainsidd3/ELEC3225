@@ -18,17 +18,19 @@ def print_tables():
 
 exit = False
 while (exit == False):
-    print("1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Exit")
+    print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Exit")
     userInput = ""
     while (type(userInput) != int):
         try:
             userInput = int(input("Enter your selection: "))
         except: 
             print("Error: Input not an integer")
-    if (userInput > 6) or (userInput < 1):
-        print("Error: Input out of range (1-6), please try again")
+    if (userInput > 6) or (userInput < 0):
+        print("Error: Input out of range (0-6), please try again")
 
-    if userInput == 1:
+    if userInput == 0:
+        pass
+    elif userInput == 1:
         pass
     elif userInput == 2:
         pass
