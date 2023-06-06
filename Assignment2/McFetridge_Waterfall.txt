@@ -1,6 +1,6 @@
 Waterfall - Ethan McFetridge
 
-Requirements analysis and definition
+Requirements specification (same for all 3 models):
 Course database:
 	-Contains course CRNs, names, times, and the instructor
 	-No listed requirement for # of courses
@@ -88,8 +88,8 @@ All of the user types (student, instructor, admin) are derived from this class a
 	-Also have their own methods for individual functions (for example, admins have their own functions for editing courses)
 
 Implementation and unit testing:
-Written using C++?
-Test all of the user database with test users on a small scale (10 students, 3 instructors, 1 admin?)
+Written using C++/Python
+Test all of the user database with test users on a small scale (4 students, 2 instructors, 1 admin) 
 Test all of the course database functions from an admin user account
 
 Integration and system testing:
@@ -97,3 +97,11 @@ Connect the user and course databases, test all functions
 
 Operation and maintenance:
 Let the system be used for a period of time, and collect feedback on any potential issues.
+
+
+/* Comments - Zain Siddiqi I like the overall description and breakdown of each class and all the database this will be a useful roadmap to orgniaze what we need to do.
+I would say to lower the testcases at first for line 92 to about 4 students and 2 instructors and 1 admin to prevent lots of errors and then increase after for the second test case. other than that this model seems to work best starting from the scheduling system and then beyond */
+
+/* Comments - Santino Nardolillo
+Overall solid process model and description, very specific with inclusion of integers and functions for "functionality" in future iterations through the process. Would recommend the use of Python for coding, as class structure, file management and function creation will be heavily simplified and will prove much easier to implement a graphical/ visual UI in the future.
+*/

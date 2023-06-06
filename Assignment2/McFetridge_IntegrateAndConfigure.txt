@@ -56,6 +56,7 @@ Requirement modifications
 	-Financial aid
 	-Proxy access
 -Revamp UI to be more user-friendly and navigable?
+	-TODO: Brainstorm ideas on how to accomplish this
 
 System design
 -Reused parts with minimal modifications
@@ -68,3 +69,11 @@ System design
 Development and integration
 -After switching from LeopardWeb to the modified version, take feedback from users and use it to improve upon the system further
 	-Potentially bringing back old features if requirements are modified, but try to keep improved -performance
+	
+/* comments - Zain siddiqi
+   I like the overall idea of using leopardweb itself as a backbone to provide all the requirements that we need to meet. We can also improve on leopardweb itself 
+   due to the low server speeds by removing some unnecessary features. */
+
+/* Comments - Santino Nardolillo
+Overall solid process model, the inclusion of leopardweb's functionality is a good way to approach the problem directly as this is intended to modify/ replace the existing software. Possible inclusion on methods to "revamp UI to be more user-friendly" could be helpful to further this idea, even if its only a temporary suggestion.
+*/

@@ -65,3 +65,7 @@ Admins should be able to view and edit any information in the system
 
 Final version(s)
 Implement all remaining functionality, test with actual users and adjust based on feedback
+
+/* comments- Zain Siddiqi
+  I like for the first version there are 3 types of users and each attribute is broken up along with what they are able to see. overall each version thats added
+  is adding something new each time then with the final version the testing proccess makes a lot of senese as well to make sure each version is working. */

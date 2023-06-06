@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Assignment2/Nardolillo_Waterfall.txt
 Waterfall - Santino Nardolillo
 
 Requirements Analysis and Definition
@@ -52,3 +53,69 @@ Connect the user and course databases
 
 Operation and maintenance:
 Let users use the system, if they need any changes, start again.
+=======
+Waterfall - Santino Nardolillo
+
+Requirements Analysis and Definition
+
+Requirements Specification
+Database of Users:
+		-CRNs, names, times, and the instructor
+		-Should work for at least 100 students, 10 instructors, and 1 admin (111 total users)
+
+Base user class will have the following traits:
+		-Attributes: first name, last name, ID
+		-Functions
+			-Set function for each attribute
+			-Display info to print all attributes to screen
+Students - the student class will have functions that allow them to search courses, add/drop courses, print 
+their schedule
+		-Can register
+		-Can see available courses
+		-Can view their own schedule
+
+Instructor - the instructor class will have functions that allow them to print their schedule, print their class 
+list, and search for courses.
+		-Can see available courses
+		-Can see their own course roster
+
+Admin - the admin class will have functions that allow them to add courses to the system, remove courses 
+from the system, add/remove users, add/remove student from a course, search and print rosters and courses
+		-Can see everything
+		-Can edit courses/users/schedules
+
+System should include:
+	-Multiple semesters
+	-Print-out of schedule
+	-Scheduling preferences
+
+System and Software Design:
+Catalog of Courses
+
+Columns: CRN, Course name, Times, Instructor, ID
+
+Database of Users
+Columns: ID, Type of User (Student, Instructor, Admin), First name, Last name
+
+All users inherit off the base “User” class, as well as obtaining all attributes, while also retaining their own respective functions unique from one another.
+
+Implementation and unit testing:
+Possibly written in Python for simple class construction
+Go through different trials as each respective class (student, instructor, admin) and try each function to test if they work as intended.
+
+Integration and system testing:
+Connect the user and course databases
+
+Operation and maintenance:
+Let users use the system, if they need any changes, start again.
+
+/* Comments - Ethan McFetridge
+Would like to have a bit more info about the course database (Using SQL/SQLite? If so, what's the datatype and other attributes for each column of the db) 
+The rest looks good, although C++ may be a better option than Python for performances' sake
+*/
+
+/* comments - Zain Siddiqi
+I like the breakdown of each of the class from student to admin creates further detail for our model and final project. The requirements are also higly 
+broken down and shown so that it is know what it is that we need to do.
+*/
+>>>>>>> 2579cdec6d825eef881476cac80c3bd215172dc7:Nardolillo_Waterfall.txt

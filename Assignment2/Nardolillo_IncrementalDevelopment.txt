@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Assignment2/Nardolillo_IncrementalDevelopment.txt
 Incremental - Santino Nardolillo
 1st Version
 The system should be able to allow students, faculty, and an admin (such as the registrar) to add courses, search for courses, print schedules, etc.
@@ -14,3 +15,31 @@ Possibly the next step is to create a database for the requested systems.
 Final Version
 (?) Whatever the final assignment requirement is asking of us for the end result.
 Possible final version of the assignment is to have it entirely coded and functional.
+=======
+Incremental - Santino Nardolillo
+1st Version
+The system should be able to allow students, faculty, and an admin (such as the registrar) to add courses, search for courses, print schedules, etc.
+	-All users will be able to view their first/ last name, as well as their ID
+	-Students will be able to register, see available courses and their own schedule
+	-Instructors will be able to see available courses and their own course roster
+	-Admins will be able to see everything, edit courses/users/schedules
+Implement and test these requirements
+
+Next Version
+(?) Whatever the next assignment requirement is asking of us.
+Possibly the next step is to create a database for the requested systems.
+
+Final Version
+(?) Whatever the final assignment requirement is asking of us for the end result.
+Possible final version of the assignment is to have it entirely coded and functional.
+
+/* Comments - Ethan McFetridge
+We should prob have the 1st version here split up into a few iterations
+For example, first version could just have basic functionality for the user database, like being able to view users' information and IDs. 
+And then in the following versions, we add functionality for courses, schedules, etc
+*/
+
+/* Comments - Zain Siddiqi
+I think looking at the requirements for each version is a good idea such as seeing wahat we need and keep adding on to that. the final version should
+also provide user feedback. We should get the opinions on the final version and further implement from there. */
+>>>>>>> 2579cdec6d825eef881476cac80c3bd215172dc7:Nardolillo_IncrementalDevelopment.txt
