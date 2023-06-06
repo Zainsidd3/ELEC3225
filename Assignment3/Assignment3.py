@@ -12,7 +12,7 @@ def print_tables():
             cursor.execute("""SELECT * FROM """ + i)
             query_result = cursor.fetchall()
             for j in query_result:
-	            print(j)
+                print(j)
         except:
             print("Error: Missing table " + i + ", continuing.")
 
