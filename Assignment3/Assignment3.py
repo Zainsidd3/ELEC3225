@@ -3,6 +3,18 @@ import sqlite3
 database = sqlite3.connect("Assignment3/assignment3.db")
 cursor = database.cursor()
 
+def create_table():
+    print("Creating a new table.")
+    tableName = input("Enter table name: ")
+    numAttributes = ""
+    while (type(numAttributes) != int):
+        try:
+            numAttributes = int(input("Enter number of attributes for the table: "))
+        except: 
+            print("Error: Input not an integer") 
+
+
+
 def print_tables():
     print("Printing all tables")
     databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
@@ -29,7 +41,7 @@ while (exit == False):
         print("Error: Input out of range (0-6), please try again")
 
     if userInput == 0:
-        pass
+        create_table()
     elif userInput == 1:
         pass
     elif userInput == 2:
