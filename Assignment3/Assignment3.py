@@ -17,6 +17,27 @@ def print_tables():
             print("Error: Missing table " + i + ", continuing.")
 
 exit = False
+def insert_data():
+        table_name = input("Enter the table name (ADMIN, INSTRUCTOR, STUDENT): ")
+        if table_name not in ["ADMIN", "INSTRUCTOR", "STUDENT"]:
+            print("Error: Invalid table name")
+        
+            id = input("Enter ID: ")
+            name = input("Enter Name: ")
+            surname = input("Enter Surname: ")
+            grad_year = input("Enter Graduation Year: ")
+            major = input("Enter Major: ")
+            email = input("Enter Email: ")
+
+        data = f"('{id}', '{name}', '{surname}', '{grad_year}', '{major}', '{email}')"
+        try:
+            cursor.execute(f"INSERT INTO {table_name} VALUES {data}")
+            database.commit()
+            print("Data inserted successfully.")
+        except Exception as e:
+            print("Error: Failed to insert data.")
+            print(e)
+exit = False
 while (exit == False):
     print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Exit")
     userInput = ""
@@ -33,27 +54,7 @@ while (exit == False):
     elif userInput == 1:
         pass
     elif userInput == 2:
-        table_name = input("Enter the table name (ADMIN, INSTRUCTOR, STUDENT): ")
-        if table_name not in ["ADMIN", "INSTRUCTOR", "STUDENT"]:
-            print("Error: Invalid table name")
-            continue
-        
-        id = input("Enter ID: ")
-        name = input("Enter Name: ")
-        surname = input("Enter Surname: ")
-        grad_year = input("Enter Graduation Year: ")
-        major = input("Enter Major: ")
-        email = input("Enter Email: ")
-
-        data = f"('{id}', '{name}', '{surname}', '{grad_year}', '{major}', '{email}')"
-        try:
-            cursor.execute(f"INSERT INTO {table_name} VALUES {data}")
-            database.commit()
-            print("Data inserted successfully.")
-        except Exception as e:
-            print("Error: Failed to insert data.")
-            print(e)
-
+        insert_data()
     elif userInput == 3:
         pass
     elif userInput == 4:
