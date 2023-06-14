@@ -31,8 +31,10 @@ def create_table():
 					print("Error: Input not an integer")
 		textOrNumberStr = ""
 		if textOrNumber == 1:
+			print("Selected: TEXT")
 			textOrNumberStr == " TEXT"
 		else:
+			print("Selected: NUMBER")
 			textOrNumberStr = " NUMBER"
 		createCmd = createCmd + input("Attribute name: ") + textOrNumberStr + " NOT NULL"
 		if i != numAttributes:
