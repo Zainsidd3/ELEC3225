@@ -215,20 +215,25 @@ while (exit == False):
 	if (userInput > 6) or (userInput < 0):
 		print("Error: Input out of range (0-6), please try again")
 
+	# Create new table - Selection 0
 	if userInput == 0:
 		create_table()
-
 	# Search by Parameter - Selection 1
 	elif userInput == 1:
 		search()
+	# Insert new data to table - Selection 2
 	elif userInput == 2:
 		insert_data()
+	# Update data in table - Selection 3
 	elif userInput == 3:
 		pass
+	# Remove data from table - Selection 4
 	elif userInput == 4:
 		pass
+	# Print all tables - Selection 5
 	elif userInput == 5:
 		print_tables()
+	# Exit program - Selection 6
 	elif userInput == 6:
 		user_input = input("Are you sure you'd like to exit? (Y/N): ")
 		if user_input == "Y" or user_input == "y":
