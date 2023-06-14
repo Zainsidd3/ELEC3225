@@ -1,4 +1,6 @@
+from poplib import CR
 import sqlite3
+from subprocess import CREATE_NEW_PROCESS_GROUP
 
 database = sqlite3.connect("Assignment3/assignment3.db")
 cursor = database.cursor()
@@ -11,9 +13,37 @@ def create_table():
         try:
             numAttributes = int(input("Enter number of attributes for the table: "))
         except: 
-            print("Error: Input not an integer") 
+            print("Error: Input not an integer")
+    if (numAttributes <= 0):
+        print("Number of attributes not a positive integer, cancelling table creation")
+        return
+    print(numAttributes)
+    createCmd = """CREATE TABLE """ + tableName + """ (  """ + input("Enter name of the key value attribute for the table: ") + """ PRIMARY KEY NOT NULL,"""
+    for i in range(2, numAttributes+1):
+        print("Attribute #" + str(i))
+        textOrNumber = ""
+        while (textOrNumber != 1 and textOrNumber != 2):
+            textOrNumber = int(input("Enter a 1 for the attribute to be text, or a 2 for it to be a number: "))
+            while type(textOrNumber) != int:
+                try:
+                    textOrNumber = int(input("Try again: "))
+                except:
+                    print("Error: Input not an integer")
+        textOrNumberStr = ""
+        if textOrNumber == 1:
+            textOrNumberStr == " TEXT"
+        else:
+            textOrNumberStr = " NUMBER"
+        createCmd = createCmd + input("Attribute name: ") + textOrNumberStr + " NOT NULL"
+        if i != numAttributes:
+            createCmd = createCmd + ""","""
+        else:
+            createCmd = createCmd + """);"""
 
-
+    try:
+        cursor.execute(createCmd)
+    except:
+        print("Table " + tableName + " already exists.")
 
 def print_tables():
     print("Printing all tables")
@@ -28,7 +58,6 @@ def print_tables():
         except:
             print("Error: Missing table " + i + ", continuing.")
 
-exit = False
 def insert_data():
         table_name = input("Enter the table name (ADMIN, INSTRUCTOR, STUDENT): ")
         if table_name not in ["ADMIN", "INSTRUCTOR", "STUDENT"]:
