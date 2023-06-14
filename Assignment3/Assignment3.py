@@ -205,6 +205,31 @@ def insert_data():
 		except Exception as e:
 			print("Error: Failed to insert data.")
 			print(e)
+
+def delete_data():
+	print("Selected: Delete Data")
+	databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
+	databasesKeyVal = ["ID", "ID", "ID", "CRN"]
+	counter = 0
+	for i in databases:
+		print (str(counter) + " - " + str(i))
+		counter = counter + 1
+	try:
+		dbSelection = int(input("Select database to delete input from (0-3 or Q to quit): "))
+	except:
+		print("Returning to main function")
+		return
+	if (dbSelection > 3) or (dbSelection < 0):
+		print("Input out of range, returning to main function")
+		return
+	try: 
+			deleteSelection = input("Enter the key value of the item you'd like to delete, or Q to quit: ")
+	except:
+		print("Returning to main function")
+		return
+	deleteText = "DELETE FROM " + databases[dbSelection] + " WHERE " + databasesKeyVal[dbSelection] + " = " + deleteSelection;
+	cursor.execute(deleteText)
+
 exit = False
 while (exit == False):
 	print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Exit")
@@ -231,7 +256,7 @@ while (exit == False):
 		pass
 	# Remove data from table - Selection 4
 	elif userInput == 4:
-		pass
+		delete_data()
 	# Print all tables - Selection 5
 	elif userInput == 5:
 		print_tables()
@@ -243,3 +268,7 @@ while (exit == False):
 			exit = True
 		else:
 			exit = False
+
+database.commit()
+
+database.close()
