@@ -215,6 +215,32 @@ def insert_data():
         except Exception as e:
             print("Error: Failed to insert data.")
             print(e)
+def update_data():
+	print("Selected: Update Data")
+	databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
+	databasesKeyVal = ["ID", "ID", "ID", "CRN"]
+	counter = 0
+	for i in databases:
+		print (str(counter) + " - " + str(i))
+		counter = counter + 1
+	try:
+		dbSelection = int(input("Select database to update input from (0-3 or press Q to quit): "))
+	except:
+		print("Returning to main function")
+		return
+	if (dbSelection > 3) or (dbSelection < 0):
+		print("Input out of range 0-3, returning to main function and try again")
+		return
+	try: 
+		("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
+
+	except:
+		print("Returning to main function")
+		return
+	if (dbSelection == 0):
+		("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
+		print("ADMIN Title Was Succesfully Updated")
+		return            
 
 def delete_data():
     print("Selected: Delete Data")
@@ -263,7 +289,7 @@ while (exit == False):
         insert_data()
     # Update data in table - Selection 3
     elif userInput == 3:
-        pass
+        update_data()
     # Remove data from table - Selection 4
     elif userInput == 4:
         delete_data()
