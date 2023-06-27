@@ -1,6 +1,4 @@
-from poplib import CR
 import sqlite3
-from subprocess import CREATE_NEW_PROCESS_GROUP
 
 database = sqlite3.connect("Assignment3/assignment3.db")
 cursor = database.cursor()
@@ -267,9 +265,30 @@ def delete_data():
     deleteText = "DELETE FROM " + databases[dbSelection] + " WHERE " + databasesKeyVal[dbSelection] + " = " + deleteSelection;
     cursor.execute(deleteText)
 
+def match_instructors():
+    print("Selected: Match instructors to courses")
+    courseCRN = str(input("Enter course CRN to find potential instructors: "))
+    cursor.execute("""SELECT * FROM COURSE WHERE CRN = '""" + courseCRN + """'""")
+    query_result = cursor.fetchall()
+    if (len(query_result) == 1):
+        print("Selected course:")
+        print(query_result[0])
+    else:
+        print("No course found, returning to main.")
+        return
+
+    print("Finding potential professors for course #" + courseCRN + "...")
+    cursor.execute("""SELECT * FROM INSTRUCTOR WHERE DEPT = '""" + query_result[0][2] + """'""")
+    query_result = cursor.fetchall()
+    if (len(query_result) == 0):
+        print("No matching professors found in database.")
+        return
+    for i in query_result:
+        print(i)
+
 exit = False
 while (exit == False):
-    print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Exit")
+    print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Match courses to potential intructors\n7 - Exit")
     userInput = ""
     # Get menu selection from user and check that it's valid
     while type(userInput) != int:
@@ -277,9 +296,8 @@ while (exit == False):
             userInput = int(input("Enter your selection: "))
         except:
             print("Error: Input not an integer")
-    if (userInput > 6) or (userInput < 0):
-        # If input
-        print("Error: Input out of range (0-6), please try again")
+    if (userInput > 7) or (userInput < 0):
+        print("Error: Input out of range (0-7), please try again")
 
     # Create new table - Selection 0
     if userInput == 0:
@@ -305,8 +323,12 @@ while (exit == False):
     elif userInput == 5:
         print_tables()
 
-    # Exit program - Selection 6
+    # Match instructors to courses - Selection 6
     elif userInput == 6:
+        match_instructors()
+
+    # Exit program - Selection 7
+    elif userInput == 7:
         user_input = input("Are you sure you'd like to exit? (Y/N): ")
 
         if user_input == "Y" or user_input == "y":
