@@ -61,7 +61,7 @@ def print_tables():
             print("Error: Missing table " + i + ", continuing.")
 
 def search():
-    print("What would you like to search for?\n1 - ADMIN\n2 - INSTRUCTOR\n3 - STUDENT\n4 - COURSE")
+    print("Which table would you like to query?\n1 - ADMIN\n2 - INSTRUCTOR\n3 - STUDENT\n4 - COURSE")
     userInput1 = ""
     while (type(userInput1) != int):
         try:
@@ -215,6 +215,7 @@ def insert_data():
         except Exception as e:
             print("Error: Failed to insert data.")
             print(e)
+
 def update_data():
 	print("Selected: Update Data")
 	databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
@@ -270,35 +271,44 @@ exit = False
 while (exit == False):
     print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Exit")
     userInput = ""
+    # Get menu selection from user and check that it's valid
     while type(userInput) != int:
         try:
             userInput = int(input("Enter your selection: "))
         except:
             print("Error: Input not an integer")
     if (userInput > 6) or (userInput < 0):
+        # If input
         print("Error: Input out of range (0-6), please try again")
 
     # Create new table - Selection 0
     if userInput == 0:
         create_table()
+
     # Search by Parameter - Selection 1
     elif userInput == 1:
         search()
+
     # Insert new data to table - Selection 2
     elif userInput == 2:
         insert_data()
+
     # Update data in table - Selection 3
     elif userInput == 3:
         update_data()
+
     # Remove data from table - Selection 4
     elif userInput == 4:
         delete_data()
+
     # Print all tables - Selection 5
     elif userInput == 5:
         print_tables()
+
     # Exit program - Selection 6
     elif userInput == 6:
         user_input = input("Are you sure you'd like to exit? (Y/N): ")
+
         if user_input == "Y" or user_input == "y":
             print("Exiting")
             exit = True
