@@ -1,6 +1,6 @@
 import sqlite3
 
-database = sqlite3.connect("assignment3.db")
+database = sqlite3.connect("database.db")
 cursor = database.cursor()
 
 def create_table():
