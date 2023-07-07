@@ -35,47 +35,39 @@ def check_login_credentials(email, password):
     else:
         return False
 
-def login():
-    while True:
-        email = input("Enter your email address: ")
-        password = input("Enter your password: ")
+while True:
+    email = input("Enter your email address: ")
+    password = input("Enter your password: ")
 
-        if check_login_credentials(email, password):
-            class_of_user(email)
-            break
-        else:
-            print("Invalid email or password. Please try again.")
+    if check_login_credentials(email, password):
+        print("Login successful!")
+        break
+    else:
+        print("Invalid email or password. Please try again.")
 
-        choice = input("Continue? (y/n): ")
-        if choice.lower() != 'y':
-            break
+tables = ["STUDENT", "ADMIN", "INSTRUCTOR"]
+for i in tables:
+    query = "SELECT * FROM " + i + " WHERE EMAIL = '" + email + "'"
+    cursor.execute(query)
+    userInfo = cursor.fetchall()
+    if (len(userInfo) > 0):
+        userType = i
+        break
 
-def class_of_user(email):
-    tables = ["STUDENT", "ADMIN", "INSTRUCTOR"]
-    for i in tables:
-        query = "SELECT * FROM " + i + " WHERE EMAIL = '" + email + "'"
-        cursor.execute(query)
-        userInfo = cursor.fetchall()
-        if (len(userInfo) > 0):
-            userType = i
-            break
+#store all user info in object
+loggedInUser = user()
+if (userType == "STUDENT"):
+    loggedInUser = student()
+elif (userType == "ADMIN"):
+    loggedInUser = admin()
+elif (userType == "INSTRUCTOR"):
+    loggedInUser = instructor()
 
-    #store all user info in object
-    loggedInUser = user()
-    if (userType == "STUDENT"):
-        loggedInUser = student()
-    elif (userType == "ADMIN"):
-        loggedInUser = admin()
-    elif (userType == "INSTRUCTOR"):
-        loggedInUser = instructor()
-
-    loggedInUser.set_id(userInfo[0][0])
-    loggedInUser.set_first_name(userInfo[0][1])
-    loggedInUser.set_last_name(userInfo[0][2])
-    print("Login successful. Welcome, " + userType + ":")
-    loggedInUser.print_info()
-
-login()
+loggedInUser.set_id(userInfo[0][0])
+loggedInUser.set_first_name(userInfo[0][1])
+loggedInUser.set_last_name(userInfo[0][2])
+print("Welcome, " + userType + ":")
+loggedInUser.print_info()
 
 exit = False
 while (exit == False):
