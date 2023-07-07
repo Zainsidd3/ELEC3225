@@ -1,9 +1,8 @@
 import sqlite3
 
-database = sqlite3.connect("database.db")
-cursor = database.cursor()
-
 def create_table():
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
     print("Creating a new table.")
     tableName = input("Enter table name: ")
     numAttributes = ""
@@ -44,8 +43,12 @@ def create_table():
         cursor.execute(createCmd)
     except:
         print("Table " + tableName + " already exists.")
+    database.commit()
+    database.close()
 
 def print_tables():
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
     print("Printing all tables")
     databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
     for i in databases:
@@ -57,8 +60,12 @@ def print_tables():
                 print(j)
         except:
             print("Error: Missing table " + i + ", continuing.")
+    database.commit()
+    database.close()
 
 def search():
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
     print("Which table would you like to query?\n1 - ADMIN\n2 - INSTRUCTOR\n3 - STUDENT\n4 - COURSE")
     userInput1 = ""
     while (type(userInput1) != int):
@@ -181,8 +188,12 @@ def search():
 
         cursor.execute("""SELECT * FROM COURSE WHERE """ + courseAtt[userInput1] + """ = '""" + queryVal + """'""")
         query_result = cursor.fetchall()
+    database.commit()
+    database.close()
 
 def insert_data():
+        database = sqlite3.connect("database.db")
+        cursor = database.cursor()
         table_name = input("Enter the table name (ADMIN, INSTRUCTOR, STUDENT, COURSE): ")
         if table_name not in ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]:
             print("Error: Invalid table name")
@@ -213,35 +224,43 @@ def insert_data():
         except Exception as e:
             print("Error: Failed to insert data.")
             print(e)
+        database.commit()
+        database.close()
 
 def update_data():
-	print("Selected: Update Data")
-	databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
-	databasesKeyVal = ["ID", "ID", "ID", "CRN"]
-	counter = 0
-	for i in databases:
-		print (str(counter) + " - " + str(i))
-		counter = counter + 1
-	try:
-		dbSelection = int(input("Select database to update input from (0-3 or press Q to quit): "))
-	except:
-		print("Returning to main function")
-		return
-	if (dbSelection > 3) or (dbSelection < 0):
-		print("Input out of range 0-3, returning to main function and try again")
-		return
-	try: 
-		("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    print("Selected: Update Data")
+    databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
+    databasesKeyVal = ["ID", "ID", "ID", "CRN"]
+    counter = 0
+    for i in databases:
+        print (str(counter) + " - " + str(i))
+        counter = counter + 1
+    try:
+        dbSelection = int(input("Select database to update input from (0-3 or press Q to quit): "))
+    except:
+        print("Returning to main function")
+        return
+    if (dbSelection > 3) or (dbSelection < 0):
+        print("Input out of range 0-3, returning to main function and try again")
+        return
+    try: 
+        ("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
 
-	except:
-		print("Returning to main function")
-		return
-	if (dbSelection == 0):
-		("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
-		print("ADMIN Title Was Succesfully Updated")
-		return            
+    except:
+        print("Returning to main function")
+        return
+    if (dbSelection == 0):
+        ("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
+        print("ADMIN Title Was Succesfully Updated")
+        return            
+    database.commit()
+    database.close()
 
 def delete_data():
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
     print("Selected: Delete Data")
     databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
     databasesKeyVal = ["ID", "ID", "ID", "CRN"]
@@ -266,6 +285,8 @@ def delete_data():
     cursor.execute(deleteText)
 
 def match_instructors():
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
     print("Selected: Match instructors to courses")
     courseCRN = str(input("Enter course CRN to find potential instructors: "))
     cursor.execute("""SELECT * FROM COURSE WHERE CRN = '""" + courseCRN + """'""")
@@ -285,58 +306,58 @@ def match_instructors():
         return
     for i in query_result:
         print(i)
+    database.commit()
+    database.close()
 
-exit = False
-while (exit == False):
-    print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Match courses to potential intructors\n7 - Exit")
-    userInput = ""
-    # Get menu selection from user and check that it's valid
-    while type(userInput) != int:
-        try:
-            userInput = int(input("Enter your selection: "))
-        except:
-            print("Error: Input not an integer")
-    if (userInput > 7) or (userInput < 0):
-        print("Error: Input out of range (0-7), please try again")
 
-    # Create new table - Selection 0
-    if userInput == 0:
-        create_table()
 
-    # Search by Parameter - Selection 1
-    elif userInput == 1:
-        search()
+#exit = False
+#while (exit == False):
+#    print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Match courses to potential intructors\n7 - Exit")
+#    userInput = ""
+#    # Get menu selection from user and check that it's valid
+#    while type(userInput) != int:
+#        try:
+#            userInput = int(input("Enter your selection: "))
+#        except:
+#            print("Error: Input not an integer")
+#    if (userInput > 7) or (userInput < 0):
+#        print("Error: Input out of range (0-7), please try again")
 
-    # Insert new data to table - Selection 2
-    elif userInput == 2:
-        insert_data()
+#    # Create new table - Selection 0
+#    if userInput == 0:
+#        create_table()
 
-    # Update data in table - Selection 3
-    elif userInput == 3:
-        update_data()
+#    # Search by Parameter - Selection 1
+#    elif userInput == 1:
+#        search()
 
-    # Remove data from table - Selection 4
-    elif userInput == 4:
-        delete_data()
+#    # Insert new data to table - Selection 2
+#    elif userInput == 2:
+#        insert_data()
 
-    # Print all tables - Selection 5
-    elif userInput == 5:
-        print_tables()
+#    # Update data in table - Selection 3
+#    elif userInput == 3:
+#        update_data()
 
-    # Match instructors to courses - Selection 6
-    elif userInput == 6:
-        match_instructors()
+#    # Remove data from table - Selection 4
+#    elif userInput == 4:
+#        delete_data()
 
-    # Exit program - Selection 7
-    elif userInput == 7:
-        user_input = input("Are you sure you'd like to exit? (Y/N): ")
+#    # Print all tables - Selection 5
+#    elif userInput == 5:
+#        print_tables()
 
-        if user_input == "Y" or user_input == "y":
-            print("Exiting")
-            exit = True
-        else:
-            exit = False
+#    # Match instructors to courses - Selection 6
+#    elif userInput == 6:
+#        match_instructors()
 
-database.commit()
+#    # Exit program - Selection 7
+#    elif userInput == 7:
+#        user_input = input("Are you sure you'd like to exit? (Y/N): ")
 
-database.close()
+#        if user_input == "Y" or user_input == "y":
+#            print("Exiting")
+#            exit = True
+#        else:
+#            exit = False
