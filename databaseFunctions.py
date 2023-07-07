@@ -63,22 +63,23 @@ def print_tables():
     database.commit()
     database.close()
 
-def search():
+#print one table
+def print_table(table):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
-    print("Which table would you like to query?\n1 - ADMIN\n2 - INSTRUCTOR\n3 - STUDENT\n4 - COURSE")
-    userInput1 = ""
-    while (type(userInput1) != int):
-        try:
-            userInput1 = int(input("Enter your selection: "))
-        except: 
-            print("Error: Input not an integer")
-        if (userInput1 > 4) or (userInput1 < 1):
-            print("Error: Input out of range (1-4), please try again")
+    cursor.execute("SELECT * FROM " + table)
+    query_result = cursor.fetchall()
+    for j in query_result:
+        print(j)
+    database.commit()
+    database.close()
+
+def search(table):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
 
     # Search Admin table
-    if userInput1 == 1:
-        print("ADMIN")
+    if table == "ADMIN":
         adminAtt = ["ID", "NAME", "SURNAME", "TITLE", "OFFICE", "EMAIL"]
         counter = 0
 
@@ -101,13 +102,9 @@ def search():
 
         cursor.execute("""SELECT * FROM ADMIN WHERE """ + adminAtt[userInput1] + """ = '""" + queryVal + """'""")
         query_result = cursor.fetchall()
-
-        for i in query_result:
-            print(i)
         
     # Search Instructor table
-    elif userInput1 == 2:
-        print("INSTRUCTOR")
+    elif table == "INSTRUCTOR":
         instructAtt = ["ID", "NAME", "SURNAME", "TITLE", "HIREYEAR", "DEPT", "EMAIL"]
         counter = 0
 
@@ -131,12 +128,8 @@ def search():
         cursor.execute("""SELECT * FROM INSTRUCTOR WHERE """ + instructAtt[userInput1] + """ = '""" + queryVal + """'""")
         query_result = cursor.fetchall()
 
-        for i in query_result:
-            print(i)
-
     # Search Student table
-    elif userInput1 == 3:
-        print("STUDENT")
+    elif table == "STUDENT":
         studentAtt = ["ID", "NAME", "SURNAME", "GRADYEAR", "MAJOR", "EMAIL"]
         counter = 0
 
@@ -160,12 +153,8 @@ def search():
         cursor.execute("""SELECT * FROM STUDENT WHERE """ + studentAtt[userInput1] + """ = '""" + queryVal + """'""")
         query_result = cursor.fetchall()
 
-        for i in query_result:
-            print(i)
-
     # Search COURSE table
-    elif userInput1 == 4:
-        print("COURSE")
+    elif table == "COURSE":
         courseAtt = ["CRN", "TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS"]
         counter = 0
 
@@ -188,7 +177,9 @@ def search():
 
         cursor.execute("""SELECT * FROM COURSE WHERE """ + courseAtt[userInput1] + """ = '""" + queryVal + """'""")
         query_result = cursor.fetchall()
-    database.commit()
+    print("Results found: " + str(len(query_result)))
+    for i in query_result:
+        print(i)
     database.close()
 
 def insert_data():
@@ -283,6 +274,25 @@ def delete_data():
         return
     deleteText = "DELETE FROM " + databases[dbSelection] + " WHERE " + databasesKeyVal[dbSelection] + " = " + deleteSelection;
     cursor.execute(deleteText)
+    database.commit()
+    database.close()
+
+def delete_data(table):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    if (table == "COURSE"):
+        databasesKeyVal = "CRN"
+    else:
+        databasesKeyVal = "ID"
+    deleteSelection = input("Enter the " + databasesKeyVal + " of the item you'd like to delete, or Q to quit: ")
+    if (deleteSelection == "Q"):
+        print("Returning to main menu")
+        return
+    deleteText = "DELETE FROM " + table + " WHERE " + databasesKeyVal + " = '" + deleteSelection + "'";
+    cursor.execute(deleteText)
+    database.commit()
+    database.close()
+
 
 def match_instructors():
     database = sqlite3.connect("database.db")

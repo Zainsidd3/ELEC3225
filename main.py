@@ -5,7 +5,7 @@ database = sqlite3.connect("database.db")
 cursor = database.cursor()
 
 #login stuff goes here
-userEmail = "mcfetridgee"
+userEmail = "hamiltonm"
 
 #search student/admin/instructor tables to find a matching email to the one that logged in
 tables = ["STUDENT", "ADMIN", "INSTRUCTOR"]
@@ -32,16 +32,49 @@ loggedInUser.set_last_name(userInfo[0][2])
 print("Login successful. Welcome, " + userType + ":")
 loggedInUser.print_info()
 
-numSelections = 3
-print("1 - Display all courses\n2 - Search courses by parameters")
-if (userType == "STUDENT"):
-    print("3 - Add/remove course from semester schedule")
-    numSelections = numSelections + 1
-elif (userType == "ADMIN"):
-    print("3 - Add/remove courses from system")
-    numSelections = numSelections + 1
-elif (userType == "INSTRUCTOR"):
-    print("3 - Assemble/Print Course Roster")
-    numSelections = numSelections + 1
-print("4 - Quit")
+exit = False
+while (exit == False):
+    numSelections = 3
+    print("1 - Display all courses\n2 - Search courses by parameters")
+    if (userType == "STUDENT"):
+        print("3 - Add/remove course from semester schedule")
+        numSelections = numSelections + 1
+    elif (userType == "ADMIN"):
+        print("3 - Add/remove courses from system")
+        numSelections = numSelections + 1
+    elif (userType == "INSTRUCTOR"):
+        print("3 - Assemble/Print Course Roster")
+        numSelections = numSelections + 1
+    print("4 - Quit")
 
+    userInput = ""
+    # Get menu selection from user and check that it's valid
+    while type(userInput) != int:
+        try:
+            userInput = int(input("Enter your selection: "))
+        except:
+            print("Error: Input not an integer")
+    if (userInput > numSelections) or (userInput < 1):
+        print("Error: Input out of range (0-" + str(numSelections) + "), please try again")
+
+    if (userInput == 1):
+        #display all courses
+        print("Selected: Display all courses")
+        print_table("COURSE")
+    elif (userInput == 2):
+        #search courses by parameters
+        search("COURSE")
+    elif (userInput == 3):
+        if (userType == "STUDENT"):
+            #add/remove course from sem. schedule
+            pass
+        elif (userType == "ADMIN"):
+            #add/remove courses from system
+            delete_data("COURSE")
+        elif (userType == "INSTRUCTOR"):
+            #assemble/print course roster
+            pass
+    else:
+        #quit
+        exit = True
+        print("Exiting...")
