@@ -316,69 +316,10 @@ def match_instructors():
         return
     for i in query_result:
         print(i)
-<<<<<<< HEAD
-
-
-exit = False
-while (exit == False):
-    print("0 - Create new table\n1 - Search by parameter\n2 - Insert new entry to table\n3 - Update existing table entry\n4 - Remove existing table entry\n5 - Print all tables\n6 - Match courses to potential intructors\n7 - Exit")
-    userInput = ""
-    # Get menu selection from user and check that it's valid
-    while type(userInput) != int:
-        try:
-            userInput = int(input("Enter your selection: "))
-        except:
-            print("Error: Input not an integer")
-    if (userInput > 7) or (userInput < 0):
-        print("Error: Input out of range (0-7), please try again")
-
-    # Create new table - Selection 0
-    if userInput == 0:
-        create_table()
-
-    # Search by Parameter - Selection 1
-    elif userInput == 1:
-        search()
-
-    # Insert new data to table - Selection 2
-    elif userInput == 2:
-        insert_data()
-
-    # Update data in table - Selection 3
-    elif userInput == 3:
-        update_data()
-
-    # Remove data from table - Selection 4
-    elif userInput == 4:
-        delete_data()
-
-    # Print all tables - Selection 5
-    elif userInput == 5:
-        print_tables()
-
-    # Match instructors to courses - Selection 6
-    elif userInput == 6:
-        match_instructors()
-
-    # Exit program - Selection 7
-    elif userInput == 7:
-        user_input = input("Are you sure you'd like to exit? (Y/N): ")
-
-        if user_input == "Y" or user_input == "y":
-            print("Exiting")
-            exit = True
-        else:
-            exit = False
-
-database.commit()
-
-database.close()
-
-    database.commit
-=======
     database.commit()
->>>>>>> ecd86b3fb029815f784c1131d834f4f435687e4e
     database.close()
+
+
 
 #exit = False
 #while (exit == False):
