@@ -1,11 +1,5 @@
 import sqlite3
 
-
-database = sqlite3.connect("database.db")
-cursor = database.cursor()
-
-def create_table():
-
 def create_table():
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
@@ -473,10 +467,8 @@ database.commit()
 
 database.close()
 
-    database.commit()
+    database.commit
     database.close()
-
-
 
 #exit = False
 #while (exit == False):
@@ -528,4 +520,3 @@ database.close()
 #            exit = True
 #        else:
 #            exit = False
-
