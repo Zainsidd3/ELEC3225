@@ -92,83 +92,8 @@ def search(table):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
 
-    # Search Admin table
-    if table == "ADMIN":
-        adminAtt = ["ID", "NAME", "SURNAME", "TITLE", "OFFICE", "EMAIL"]
-        counter = 0
-
-        for i in adminAtt:
-            print(str(counter) + " - " + str(i))
-            counter = counter + 1
-
-        userInput1 = ""
-        while (type(userInput1) != int):
-            try:
-                userInput1 = int(input("Enter your selection: "))
-            except: 
-                print("Error: Input not an integer")
-            if (userInput1 > 5) or (userInput1 < 0):
-                print("Error: Input out of range (0-5), please try again")
-
-        print(adminAtt[userInput1])
-
-        queryVal = str(input("Enter Value: "))
-
-        cursor.execute("""SELECT * FROM ADMIN WHERE """ + adminAtt[userInput1] + """ = '""" + queryVal + """'""")
-        query_result = cursor.fetchall()
-        
-    # Search Instructor table
-    elif table == "INSTRUCTOR":
-        instructAtt = ["ID", "NAME", "SURNAME", "TITLE", "HIREYEAR", "DEPT", "EMAIL"]
-        counter = 0
-
-        for i in instructAtt:
-            print(str(counter) + " - " + str(i))
-            counter = counter + 1
-
-        userInput1 = ""
-        while (type(userInput1) != int):
-            try:
-                userInput1 = int(input("Enter your selection: "))
-            except: 
-                print("Error: Input not an integer")
-            if (userInput1 > 6) or (userInput1 < 0):
-                print("Error: Input out of range (0-6), please try again")
-
-        print(instructAtt[userInput1])
-
-        queryVal = input("Enter Value: ")
-
-        cursor.execute("""SELECT * FROM INSTRUCTOR WHERE """ + instructAtt[userInput1] + """ = '""" + queryVal + """'""")
-        query_result = cursor.fetchall()
-
-    # Search Student table
-    elif table == "STUDENT":
-        studentAtt = ["ID", "NAME", "SURNAME", "GRADYEAR", "MAJOR", "EMAIL"]
-        counter = 0
-
-        for i in studentAtt:
-            print(str(counter) + " - " + str(i))
-            counter = counter + 1
-
-        userInput1 = ""
-        while (type(userInput1) != int):
-            try:
-                userInput1 = int(input("Enter your selection: "))
-            except: 
-                print("Error: Input not an integer")
-            if (userInput1 > 5) or (userInput1 < 0):
-                print("Error: Input out of range (0-5), please try again")
-
-        print(studentAtt[userInput1])
-
-        queryVal = input("Enter Value: ")
-
-        cursor.execute("""SELECT * FROM STUDENT WHERE """ + studentAtt[userInput1] + """ = '""" + queryVal + """'""")
-        query_result = cursor.fetchall()
-
     # Search COURSE table
-    elif table == "COURSE":
+    if table == "COURSE":
         courseAtt = ["CRN", "TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS"]
         counter = 0
 
