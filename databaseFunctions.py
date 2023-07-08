@@ -1,5 +1,19 @@
 import sqlite3
 
+def check_login_credentials(email, password):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    # Check if the email and password match in the LOGINS table
+    cursor.execute("SELECT COUNT(*) FROM LOGINS WHERE ID=? AND PASSWORD=?", (email, password))
+    login_count = cursor.fetchone()[0]
+
+    if login_count > 0:
+        return True
+    else:
+        return False
+    database.commit()
+    database.close()
+
 def create_table():
     database = sqlite3.connect("database.db")
     cursor = database.cursor()

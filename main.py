@@ -25,15 +25,6 @@ cursor = database.cursor()
 #        break
 
 # LOGIN STUFF
-def check_login_credentials(email, password):
-    # Check if the email and password match in the LOGINS table
-    cursor.execute("SELECT COUNT(*) FROM LOGINS WHERE ID=? AND PASSWORD=?", (email, password))
-    login_count = cursor.fetchone()[0]
-
-    if login_count > 0:
-        return True
-    else:
-        return False
 
 def main():
     while True:
