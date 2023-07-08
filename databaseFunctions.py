@@ -81,10 +81,20 @@ def print_tables():
 def print_table(table):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
-    cursor.execute("SELECT * FROM " + table)
-    query_result = cursor.fetchall()
-    for j in query_result:
-        print(j)
+    if (table == "COURSE"):
+        cursor.execute("SELECT * FROM COURSE")
+        rows = cursor.fetchall()
+        column_names = [description[0] for description in cursor.description]
+        column_names = column_names[:-1]
+        print(column_names)
+        for row in rows:
+            row_values = row[:-1]
+            print(row_values)
+    else:
+        cursor.execute("SELECT * FROM " + table)
+        query_result = cursor.fetchall()
+        for j in query_result:
+            print(j)
     database.commit()
     database.close()
 
