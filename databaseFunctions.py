@@ -273,10 +273,10 @@ def add_remove(table):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
 
-<<<<<<< HEAD
+
     if table == "COURSE":
         databasesKeyVal = "CRN"
-=======
+
     print("1 - Add yourself to a course roster\n2 - Remove yourself from a course roster\n3 - Go back to main menu")
     userInput = 0
     while (userInput > 3 or userInput < 1):
@@ -352,13 +352,13 @@ def check_if_student_in_roster(studentID, courseCRN):
     if (len(course) == 0):
             print("Course not found.")
             return
->>>>>>> 94202c5c5462956f7192a3fde910541528928af5
+
     else:
         databasesKeyVal = "ID"
 
     operation = input("Enter 'add' to add a student to a course or 'remove' to remove a student from a course: ")
 
-<<<<<<< HEAD
+
     if operation == "add":
         course_crn = input("Enter the CRN of the course: ")
         student_id = input("Enter the ID of the student: ")
@@ -451,7 +451,7 @@ def check_if_student_in_roster(studentID, courseCRN):
         print("Invalid operation.")
 
     database.close()
-=======
+
     for i in courseRoster:
         if (str(i) == str(studentID)):
             return True
@@ -464,7 +464,7 @@ def print_roster():
     cursor = database.cursor()
 
     courseCRN = str(input("Enter course CRN to print the roster of: "))
->>>>>>> 94202c5c5462956f7192a3fde910541528928af5
+
 
     cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
     course = cursor.fetchone()
