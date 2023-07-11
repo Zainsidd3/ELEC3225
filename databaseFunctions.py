@@ -1,3 +1,4 @@
+from calendar import c
 import sqlite3
 
 def check_login_credentials(email, password):
@@ -269,13 +270,9 @@ def match_instructors():
     database.close()
 
 
-def add_remove(table):
+def add_or_remove_from_roster(ID):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
-
-
-    if table == "COURSE":
-        databasesKeyVal = "CRN"
 
     print("1 - Add yourself to a course roster\n2 - Remove yourself from a course roster\n3 - Go back to main menu")
     userInput = 0
@@ -352,105 +349,21 @@ def check_if_student_in_roster(studentID, courseCRN):
     if (len(course) == 0):
             print("Course not found.")
             return
-
     else:
-        databasesKeyVal = "ID"
+        courseRosterStr = course[9]
+        if (courseRosterStr == None):
+            courseRosterStr = ""
 
-    operation = input("Enter 'add' to add a student to a course or 'remove' to remove a student from a course: ")
-
-
-    if operation == "add":
-        course_crn = input("Enter the CRN of the course: ")
-        student_id = input("Enter the ID of the student: ")
-
-        # Check if the course exists
-        cursor.execute("SELECT * FROM " + table + " WHERE " + databasesKeyVal + " = ?", (course_crn,))
-        existing_course = cursor.fetchone()
-
-        if not existing_course:
-            print("Course not found in the table.")
-            database.close()
-            return
-
-        # Fetch the roster string and student name from the course and student tables
-        cursor.execute("SELECT ROSTER FROM COURSE WHERE CRN = ?", (course_crn,))
-        result = cursor.fetchone()
-
-        if result is None:
-            roster = []
-        else:
-            roster = result[0].split("\n")
-            if student_id in roster:
-                print("Student is already added to the course.")
-                database.close()
-                return
-
-        # Get the student name from the STUDENT table
-        cursor.execute("SELECT NAME FROM STUDENT WHERE ID = ?", (student_id,))
-        student_name = cursor.fetchone()
-
-        if student_name is None:
-            print("Student not found in the database.")
-            database.close()
-            return
-
-        # Add the student ID and name to the roster
-        roster.append(f"{student_id} - {student_name[0]}")
-        updated_roster = "\n".join(roster)
-
-        # Update the course roster
-        cursor.execute("UPDATE COURSE SET ROSTER = ? WHERE CRN = ?", (updated_roster, course_crn))
-        database.commit()
-        print("Student added to the course successfully.")
-
-    elif operation == "remove":
-        course_crn = input("Enter the CRN of the course: ")
-        student_id = input("Enter the ID of the student: ")
-
-        # Check if the course exists
-        cursor.execute("SELECT * FROM " + table + " WHERE " + databasesKeyVal + " = ?", (course_crn,))
-        existing_course = cursor.fetchone()
-
-        if not existing_course:
-            print("Course not found in the table.")
-            database.close()
-            return
-
-        # Fetch the roster string from the course
-        cursor.execute("SELECT ROSTER FROM COURSE WHERE CRN = ?", (course_crn,))
-        result = cursor.fetchone()
-
-        if result is None:
-            print("No students enrolled in the course.")
-            database.close()
-            return
-
-        roster = result[0].split("\n")
-        student_info = f"{student_id} - "
-
-        found = False
-        for i, entry in enumerate(roster):
-            if entry.startswith(student_info):
-                roster.pop(i)
-                found = True
-                break
-
-        if not found:
-            print("Student is not enrolled in the course.")
-            database.close()
-            return
-
-        updated_roster = "\n".join(roster)
-
-        # Update the course roster
-        cursor.execute("UPDATE COURSE SET ROSTER = ? WHERE CRN = ?", (updated_roster, course_crn))
-        database.commit()
-        print("Student removed from the course successfully.")
-
-    else:
-        print("Invalid operation.")
-
-    database.close()
+    courseRoster = []
+    currentStudent = ""
+    for i in courseRosterStr:
+        if (i == None):
+            break
+        elif (i == ","):
+            courseRoster.append(currentStudent)
+            currentStudent = ""
+            continue
+        currentStudent = currentStudent + i
 
     for i in courseRoster:
         if (str(i) == str(studentID)):
@@ -464,7 +377,6 @@ def print_roster():
     cursor = database.cursor()
 
     courseCRN = str(input("Enter course CRN to print the roster of: "))
-
 
     cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
     course = cursor.fetchone()
