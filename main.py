@@ -97,7 +97,7 @@ def main():
         elif (userInput == 3):
             if (userType == "STUDENT"):
                 #add/remove course from sem. schedule
-                add_remove("COURSE")
+                add_remove("STUDENT")
             elif (userType == "ADMIN"):
                 #add/remove courses from system
                 delete_data("COURSE")
