@@ -298,7 +298,6 @@ def add_or_remove_from_roster(ID):
                 print("You are already in this course.")
             else:
                 newCourseRoster = courseRoster + str(ID) + ","
-                print(newCourseRoster)
                 cursor.execute("UPDATE COURSE SET ROSTER = '" + newCourseRoster + "' WHERE CRN = '" + CRN + "'")
                 print("You have been added to course " + CRN + ".")
         
@@ -373,9 +372,43 @@ def check_if_student_in_roster(studentID, courseCRN):
     return False
         
        
+def print_roster():
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
 
+    courseCRN = str(input("Enter course CRN to print the roster of: "))
 
+    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
+    course = cursor.fetchone()
 
+    if (len(course) == 0):
+            print("Course not found.")
+            return
+    else:
+        courseRosterStr = course[9]
+        if (courseRosterStr == None):
+            courseRosterStr = ""
+
+    courseRoster = []
+    currentStudent = ""
+    for i in courseRosterStr:
+        if (i == None):
+            break
+        elif (i == ","):
+            courseRoster.append(currentStudent)
+            currentStudent = ""
+            continue
+        currentStudent = currentStudent + i
+
+    if (len(courseRoster) == 0):
+        print("No students in roster.")
+        return
+    print("Course roster for CRN #" + courseCRN + ":")
+    for i in courseRoster:
+        cursor.execute("SELECT * FROM STUDENT WHERE ID = '" + i + "'")
+        student = cursor.fetchone()
+        studentInfo = "ID: " + i + "; Name = " + student[1] + " " + student[2] + ";"
+        print(studentInfo)
 
 
 #exit = False

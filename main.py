@@ -103,7 +103,7 @@ def main():
                 delete_data("COURSE")
             elif (userType == "INSTRUCTOR"):
                 #assemble/print course roster
-                pass
+                print_roster()
         elif (userInput == 4):
             print("Logging Out...")
             break
