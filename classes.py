@@ -18,6 +18,9 @@ class user:
         #set the user's ID
         self.ID = newID
     
+    def get_ID(self):
+        return self.ID
+
     def print_info(self):
         #print the user's info
         print("Name =", self.firstName, self.lastName, "; ID =", self.ID)

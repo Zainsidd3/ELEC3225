@@ -63,7 +63,7 @@ def main():
 
     exit = False
     while (exit == False):
-        numSelections = 3
+        numSelections = 4
         print("1 - Display all courses\n2 - Search courses by parameters")
         if (userType == "STUDENT"):
             print("3 - Add/remove course from semester schedule")
@@ -97,7 +97,7 @@ def main():
         elif (userInput == 3):
             if (userType == "STUDENT"):
                 #add/remove course from sem. schedule
-                add_remove("COURSE")
+                add_or_remove_from_roster(loggedInUser.get_ID())
             elif (userType == "ADMIN"):
                 #add/remove courses from system
                 delete_data("COURSE")
