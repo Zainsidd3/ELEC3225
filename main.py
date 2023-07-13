@@ -90,20 +90,21 @@ def main():
         if (userInput == 1):
             #display all courses
             print("Selected: Display all courses")
-            print_table("COURSE")
+            loggedInUser.print_all_courses()
         elif (userInput == 2):
             #search courses by parameters
-            search("COURSE")
+            print("Selected: Search for a course")
+            loggedInUser.search_for_course()
         elif (userInput == 3):
             if (userType == "STUDENT"):
                 #add/remove course from sem. schedule
-                add_or_remove_from_roster(loggedInUser.get_ID())
+                loggedInUser.modify_schedule()
             elif (userType == "ADMIN"):
                 #add/remove courses from system
-                delete_data("COURSE")
+                loggedInUser.remove_course()
             elif (userType == "INSTRUCTOR"):
                 #assemble/print course roster
-                print_roster()
+                loggedInUser.print_class_list()
         elif (userInput == 4):
             print("Logging Out...")
             break

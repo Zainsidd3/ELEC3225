@@ -1,3 +1,4 @@
+from databaseFunctions import *
 
 class user:
     #Set all values to empty/0 when first created
@@ -25,37 +26,30 @@ class user:
         #print the user's info
         print("Name =", self.firstName, self.lastName, "; ID =", self.ID)
 
+    def print_all_courses(self):
+        #print course table
+        print_table("COURSE")
+
+    def search_for_course(self):
+        search("COURSE")
+
 class student(user):
-    pass
-    #def search_for_course(self, course_name):
-    #    #search for a course using the course name
-    #    print("Called student.search_for_course() with course_name", course_name)
-
-    #def add_course(self, course_id):
-    #    #add a course using the course's id
-    #    print("Called student.add_course() with course_id", str(course_id))
-
-    #def drop_course(self, course_id):
-    #    #drop a course using the course's id
-    #    print("Called student.drop_course() with course_id", str(course_id))
+    def modify_schedule(self):
+        add_or_remove_from_roster(self.ID)
 
     #def print_schedule(self):
     #    #print the student's schedule
     #    print("Called student.print_schedule()")
 
 class instructor(user):
-    pass
     #def print_schedule(self):
     #    #print the instructor's schedule
     #    print("Called instructor.print_schedule()")
 
-    #def print_class_list(self):
-    #    #print the instructor's class list
-    #    print("Called instructor.print_class_list()")
-
-    #def search_for_course(self, class_name):
-    #    #search for a course using the class's name
-    #    print("Called instructor.search_for_course() with class_name", class_name)
+    def print_class_list(self):
+        #print the instructor's class list
+        courseCRN = str(input("Enter course CRN to print the roster of: "))
+        print_roster(courseCRN)
 
 class admin(user):
     pass
@@ -63,9 +57,9 @@ class admin(user):
     #    #add a course using the course's id and name
     #    print("Called admin.add_course() with course_id", str(course_id), "and course_name", course_name)
 
-    #def remove_course(self, course_id):
-    #    #remove a course using the course's id
-    #    print("Called admin.remove_course() with course_id", str(course_id))
+    def remove_course(self):
+        #remove a course using the course's id
+        delete_data("COURSE")
 
     #def add_user(self, new_user_id):
     #    #add a user to the system
@@ -86,7 +80,3 @@ class admin(user):
     #def search_for_course(self, course_name):
     #    #search for a course using the course's name
     #    print("Called admin.search_for_course() with course_name", course_name)
-
-    #def print_course_roster(self, course_id):
-    #    #print a course roster using the course's id
-    #    print("Called admin.print_course_roster() with course_id", str(course_id))

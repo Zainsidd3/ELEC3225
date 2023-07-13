@@ -372,11 +372,9 @@ def check_if_student_in_roster(studentID, courseCRN):
     return False
         
        
-def print_roster():
+def print_roster(courseCRN):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
-
-    courseCRN = str(input("Enter course CRN to print the roster of: "))
 
     cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
     course = cursor.fetchone()
