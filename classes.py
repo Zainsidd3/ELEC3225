@@ -93,15 +93,29 @@ class student(user):
     #    #print the student's schedule
     #    print("Called student.print_schedule()")
 
-class instructor(user):
-    #def print_schedule(self):
-    #    #print the instructor's schedule
-    #    print("Called instructor.print_schedule()")
 
+class instructor(user):
     def print_class_list(self):
-        #print the instructor's class list
-        courseCRN = str(input("Enter course CRN to print the roster of: "))
-        print_roster(courseCRN)
+        print("1 - Print the course roster of a specific course\n2 - Go back to the main menu")
+
+
+        userInput = 0
+        while userInput > 2 or userInput < 1:
+            try:
+                userInput = int(input("Enter your selection (1-2): "))
+            except ValueError:
+                print("Error, input unrecognized. Please try again.")
+
+        if userInput == 1:
+            # Print the course roster of a specific course
+            print("Print the course roster of a specific course")
+            CRN = input("Enter the CRN of the course: ")
+            students = print_roster(CRN)
+            if students:
+                print("Course roster for CRN #" + CRN + ":")
+                for student in students:
+                    print(student)
+            return []
 
 class admin(user):
     pass

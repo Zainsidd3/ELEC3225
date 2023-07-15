@@ -362,34 +362,35 @@ def print_roster(courseCRN):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
 
-    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
+    cursor.execute("SELECT * FROM COURSE WHERE CRN = ?", (courseCRN,))
     course = cursor.fetchone()
 
-    if (len(course) == 0):
-            print("Course not found.")
-            return
+    if course is None:
+        print("Course not found.")
+        return []
     else:
         courseRosterStr = course[9]
-        if (courseRosterStr == None):
+        if courseRosterStr is None:
             courseRosterStr = ""
 
     courseRoster = []
     currentStudent = ""
     for i in courseRosterStr:
-        if (i == None):
-            break
-        elif (i == ","):
+        if i == ",":
             courseRoster.append(currentStudent)
             currentStudent = ""
-            continue
-        currentStudent = currentStudent + i
+        else:
+            currentStudent += i
 
-    if (len(courseRoster) == 0):
+    if len(courseRoster) == 0:
         print("No students in roster.")
-        return
-    print("Course roster for CRN #" + courseCRN + ":")
-    for i in courseRoster:
-        cursor.execute("SELECT * FROM STUDENT WHERE ID = '" + i + "'")
+        return []
+
+    students = []
+    for studentID in courseRoster:
+        cursor.execute("SELECT * FROM STUDENT WHERE ID = ?", (studentID,))
         student = cursor.fetchone()
-        studentInfo = "ID: " + i + "; Name = " + student[1] + " " + student[2] + ";"
-        print(studentInfo)
+        studentInfo = "ID: " + studentID + "; Name = " + student[1] + " " + student[2] + ";"
+        students.append(studentInfo)
+    
+    return students
