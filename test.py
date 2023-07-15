@@ -34,6 +34,10 @@ class Tests(unittest.TestCase):
         with self.assertRaises(TypeError):
             search("NOTATABLE", "CRN", "001")
 
+    def test_invalid_attribute_search(self):
+        with self.assertRaises(TypeError):
+            search("COURSE", "AAAAA", "001")
+
 
 if __name__ == '__main__':
     unittest.main()
