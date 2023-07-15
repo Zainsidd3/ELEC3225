@@ -32,7 +32,30 @@ class user:
         print_table("COURSE")
 
     def search_for_course(self):
-        search("COURSE")
+        print("Searching for course")
+        courseAtt = ["CRN", "TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS"]
+        counter = 0
+
+        for i in courseAtt:
+            print(str(counter) + " - " + str(i))
+            counter = counter + 1
+
+        attribute = ""
+        while (type(attribute) != int):
+            try:
+                attribute = int(input("Enter your selection: "))
+            except: 
+                print("Error: Input not an integer")
+            if (attribute > 7) or (attribute < 0):
+                print("Error: Input out of range (0-7), please try again")
+                attribute = ""
+
+        queryVal = input("Enter Value: ")
+        result = search("COURSE", courseAtt[attribute], queryVal)
+        if (len(result) == 0):
+            print("No results found.")
+        for i in result:
+            print(i)
 
 class student(user):
     def modify_schedule(self):

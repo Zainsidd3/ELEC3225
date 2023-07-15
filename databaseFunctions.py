@@ -99,37 +99,19 @@ def print_table(table):
     database.commit()
     database.close()
 
-def search(table):
+def search(table, attribute, query):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
+    
+    try:
+        cursor.execute("""SELECT * FROM """ + table + """ WHERE """ + attribute + """ = '""" + query + """'""")
+    except:
+        raise TypeError("Error in search()")
 
-    # Search COURSE table
-    if table == "COURSE":
-        courseAtt = ["CRN", "TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS"]
-        counter = 0
+    query_result = cursor.fetchall()
 
-        for i in courseAtt:
-            print(str(counter) + " - " + str(i))
-            counter = counter + 1
+    return query_result
 
-        userInput1 = ""
-        while (type(userInput1) != int):
-            try:
-                userInput1 = int(input("Enter your selection: "))
-            except: 
-                print("Error: Input not an integer")
-            if (userInput1 > 7) or (userInput1 < 0):
-                print("Error: Input out of range (0-7), please try again")
-
-        print(courseAtt[userInput1])
-
-        queryVal = input("Enter Value: ")
-
-        cursor.execute("""SELECT * FROM COURSE WHERE """ + courseAtt[userInput1] + """ = '""" + queryVal + """'""")
-        query_result = cursor.fetchall()
-    print("Results found: " + str(len(query_result)))
-    for i in query_result:
-        print(i)
     database.close()
 
 def insert_data():
