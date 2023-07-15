@@ -39,21 +39,12 @@ class Tests(unittest.TestCase):
     def test_invalid_attribute_search(self):    # Test search with an invalid attribute
         with self.assertRaises(TypeError):
             search("COURSE", "AAAAA", "001")
-<<<<<<< HEAD
     
     def test_successful_add_course(self):
         self.assertTrue(insert_course_data("123", ["123", "Social Sciences", "PSYC", "1000", "WF", "Fall", "2023", "3", "Nobody", "0"]))
 
     def test_invalid_add_course(self):
         self.assertFalse(insert_course_data("001", ["001", "Intro to Engineering", "BSCO", "1200", "MWF", "Spring", "2024", "3", "Nelson", "0"]))
-=======
-
-    def test_successful_add_course(self):       # Test successful addition of a course
-        self.assertTrue(len(add_data("COURSE", "CRN", "001")) == 1)
-
-    def test_successful_remove_course(self):    # Test successful removal of a course
-        self.assertTrue(len(delete_data("COURSE", "CRN", "001")) == 1)
->>>>>>> origin/zainbranch
 
     def test_successful_delete_course(self):
         self.assertTrue(delete_data("123"))
