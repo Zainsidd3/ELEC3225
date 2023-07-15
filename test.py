@@ -38,6 +38,12 @@ class Tests(unittest.TestCase):
         with self.assertRaises(TypeError):
             search("COURSE", "AAAAA", "001")
 
+    def test_successful_add_course(self):
+        self.assertTrue(len(add_data("COURSE", "CRN", "001")) == 1)
+
+    def test_successful_remove_course(self):
+        self.assertTrue(len(delete_data("COURSE", "CRN", "001")) == 1)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -25,6 +25,9 @@ cursor = database.cursor()
 #        break
 
 # LOGIN STUFF
+def defaultlogin(loggedInUser):
+    loggedInUser = user()
+    main()
 
 def main():
     while True:
@@ -101,16 +104,17 @@ def main():
                 loggedInUser.modify_schedule()
             elif (userType == "ADMIN"):
                 #add/remove courses from system
-                loggedInUser.remove_course()
+                loggedInUser.modify_course()
             elif (userType == "INSTRUCTOR"):
                 #assemble/print course roster
                 loggedInUser.print_class_list()
         elif (userInput == 4):
             print("Logging Out...")
-            break
-        else:
+            defaultlogin(loggedInUser)
+        elif (userInput == 5):
             #quit
             exit = True
             print("Exiting...")
+            break
 
 main()

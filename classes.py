@@ -108,10 +108,36 @@ class admin(user):
     #def add_course(self, course_id, course_name):
     #    #add a course using the course's id and name
     #    print("Called admin.add_course() with course_id", str(course_id), "and course_name", course_name)
-
-    def remove_course(self):
-        #remove a course using the course's id
-        delete_data("COURSE")
+    def modify_course(self, course_id, course_name):
+        print("1 - Add a course\n2 - Remove a course\n3 - Go back to main menu")
+        userInput = 0
+        while (userInput > 3 or userInput < 1):
+            try:
+                userInput = int(input("Enter your selection (1-3): "))
+            except:
+                print("Error, input unrecognized. Please try again.")
+        if (userInput == 1):
+            # add to a course
+            print("Add a course")
+            CRN = input("Enter the CRN of the course you'd like to add: ")
+            if (check_if_student_in_roster(self.ID, CRN)):
+                print("You already in this course.")
+                return
+            else:
+                if (add_to_roster(self.ID, CRN)):
+                    print("You have successfully been added to course #" + CRN + ".")
+                return
+        
+        elif (userInput == 2):
+            # remove from a course
+            print("Remove a course")
+            CRN = input("Enter the CRN of the course you'd like to remove yourself from: ")
+            if (not check_if_student_in_roster(self.ID, CRN)):
+                print("You are not in this course.")
+                return
+            if (remove_from_roster(self.ID, CRN)):
+                print("You have been successfully removed from course #" + CRN + ".")
+            return
 
     #def add_user(self, new_user_id):
     #    #add a user to the system

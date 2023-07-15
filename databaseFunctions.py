@@ -225,6 +225,22 @@ def delete_data(table):
     database.commit()
     database.close()
 
+def add_data(table):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    if (table == "COURSE"):
+        databasesKeyVal = "CRN"
+    else:
+        databasesKeyVal = "ID"
+    deleteSelection = input("Enter the " + databasesKeyVal + " of the item you'd like to delete, or Q to quit: ")
+    if (deleteSelection == "Q"):
+        print("Returning to main menu")
+        return
+    deleteText = "DELETE FROM " + table + " WHERE " + databasesKeyVal + " = '" + deleteSelection + "'";
+    cursor.execute(deleteText)
+    database.commit()
+    database.close()
+
 
 def match_instructors():
     database = sqlite3.connect("database.db")
