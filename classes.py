@@ -1,3 +1,4 @@
+from distutils.command.check import check
 from databaseFunctions import *
 
 class user:
@@ -35,7 +36,35 @@ class user:
 
 class student(user):
     def modify_schedule(self):
-        add_or_remove_from_roster(self.ID)
+        print("1 - Add yourself to a course roster\n2 - Remove yourself from a course roster\n3 - Go back to main menu")
+        userInput = 0
+        while (userInput > 3 or userInput < 1):
+            try:
+                userInput = int(input("Enter your selection (1-3): "))
+            except:
+                print("Error, input unrecognized. Please try again.")
+        if (userInput == 1):
+            # add to a course
+            print("Add yourself to a course roster")
+            CRN = input("Enter the CRN of the course you'd like to add: ")
+            if (check_if_student_in_roster(self.ID, CRN)):
+                print("You already in this course.")
+                return
+            else:
+                if (add_to_roster(self.ID, CRN)):
+                    print("You have successfully been added to course #" + CRN + ".")
+                return
+        
+        elif (userInput == 2):
+            # remove from a course
+            print("Remove yourself from a course roster")
+            CRN = input("Enter the CRN of the course you'd like to remove yourself from: ")
+            if (not check_if_student_in_roster(self.ID, CRN)):
+                print("You are not in this course.")
+                return
+            if (remove_from_roster(self.ID, CRN)):
+                print("You have been successfully removed from course #" + CRN + ".")
+            return
 
     #def print_schedule(self):
     #    #print the student's schedule

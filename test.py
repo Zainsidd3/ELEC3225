@@ -9,6 +9,18 @@ class Tests(unittest.TestCase):
     def test_failed_login(self):
         self.assertFalse(check_login_credentials("hamiltonm", "wrongpassword"))
 
+    def test_successful_add(self):
+        self.assertTrue(add_to_roster(999, "001"))
+
+    def test_add_to_invalid_CRN(self):
+        self.assertFalse(add_to_roster(999, "NOTACRN"))
+    
+    def test_successful_removal(self):
+        self.assertTrue(remove_from_roster(999, "001"))
+
+    def test_remove_from_invalid_CRN(self):
+        self.assertFalse(remove_from_roster(999, "NOTACRN"))
+
 
 if __name__ == '__main__':
     unittest.main()
