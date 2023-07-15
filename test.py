@@ -21,6 +21,9 @@ class Tests(unittest.TestCase):
     def test_remove_from_invalid_CRN(self):
         self.assertFalse(remove_from_roster(999, "NOTACRN"))
 
+    def test_remove_student_not_in_roster(self):
+        self.assertFalse(remove_from_roster(999, "002"))
+
 
 if __name__ == '__main__':
     unittest.main()
