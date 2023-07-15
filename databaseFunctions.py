@@ -114,42 +114,6 @@ def search(table, attribute, query):
 
     database.close()
 
-def insert_data():
-        database = sqlite3.connect("database.db")
-        cursor = database.cursor()
-        table_name = input("Enter the table name (ADMIN, INSTRUCTOR, STUDENT, COURSE): ")
-        if table_name not in ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]:
-            print("Error: Invalid table name")
-            return
-        attributes = []
-        if table_name == "ADMIN":
-            attributes = ["ID", "NAME", "SURNAME", "TITLE", "OFFICE", "EMAIL"]
-        elif table_name == "INSTRUCTOR":
-            attributes = ["ID", "NAME", "SURNAME", "TITLE", "HIREYEAR", "DEPT", "EMAIL"]
-        elif table_name == "STUDENT":
-            attributes = ["ID", "NAME", "SURNAME", "GRADYEAR", "MAJOR", "EMAIL"]
-        else:
-            attributes = ["CRN", "TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS"]
-
-        data = "("
-        counter = 0
-        for i in attributes:
-            data = data + "'" + str(input("Enter " + i + ": ")) + "'"
-            if counter != len(attributes) - 1:
-                 data = data + ", "
-            counter = counter + 1
-        data = data + ")"
-
-        try:
-            cursor.execute(f"INSERT INTO {table_name} VALUES {data}")
-            database.commit()
-            print("Data inserted successfully.")
-        except Exception as e:
-            print("Error: Failed to insert data.")
-            print(e)
-        database.commit()
-        database.close()
-
 def update_data():
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
@@ -181,67 +145,6 @@ def update_data():
     database.commit()
     database.close()
 
-def delete_data():
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    print("Selected: Delete Data")
-    databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
-    databasesKeyVal = ["ID", "ID", "ID", "CRN"]
-    counter = 0
-    for i in databases:
-        print (str(counter) + " - " + str(i))
-        counter = counter + 1
-    try:
-        dbSelection = int(input("Select database to delete input from (0-3 or Q to quit): "))
-    except:
-        print("Returning to main function")
-        return
-    if (dbSelection > 3) or (dbSelection < 0):
-        print("Input out of range, returning to main function")
-        return
-    try: 
-            deleteSelection = input("Enter the key value of the item you'd like to delete, or Q to quit: ")
-    except:
-        print("Returning to main function")
-        return
-    deleteText = "DELETE FROM " + databases[dbSelection] + " WHERE " + databasesKeyVal[dbSelection] + " = " + deleteSelection;
-    cursor.execute(deleteText)
-    database.commit()
-    database.close()
-
-def delete_data(table):
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    if (table == "COURSE"):
-        databasesKeyVal = "CRN"
-    else:
-        databasesKeyVal = "ID"
-    deleteSelection = input("Enter the " + databasesKeyVal + " of the item you'd like to delete, or Q to quit: ")
-    if (deleteSelection == "Q"):
-        print("Returning to main menu")
-        return
-    deleteText = "DELETE FROM " + table + " WHERE " + databasesKeyVal + " = '" + deleteSelection + "'";
-    cursor.execute(deleteText)
-    database.commit()
-    database.close()
-
-def add_data(table):
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    if (table == "COURSE"):
-        databasesKeyVal = "CRN"
-    else:
-        databasesKeyVal = "ID"
-    deleteSelection = input("Enter the " + databasesKeyVal + " of the item you'd like to delete, or Q to quit: ")
-    if (deleteSelection == "Q"):
-        print("Returning to main menu")
-        return
-    deleteText = "DELETE FROM " + table + " WHERE " + databasesKeyVal + " = '" + deleteSelection + "'";
-    cursor.execute(deleteText)
-    database.commit()
-    database.close()
-
-
 def match_instructors():
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
@@ -267,7 +170,6 @@ def match_instructors():
     database.commit()
     database.close()
 
-
 #returns True if student successfully added to roster, False otherwise
 def add_to_roster(studentID, courseCRN):
     database = sqlite3.connect("database.db")
@@ -289,6 +191,37 @@ def add_to_roster(studentID, courseCRN):
     database.close()
     return True
 
+def insert_course_data(courseCRN, data):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    if (check_if_course_exists(courseCRN)):
+        print("Error in add_to_roster(): Course CRN#" + str(courseCRN) + " already exists")
+        return False
+    try:
+        cursor.execute(f"INSERT INTO COURSE VALUES {data}")
+        database.commit()
+        print("Data inserted successfully.")
+    except Exception as e:
+        print("Error: Failed to insert data.")
+        print(e)
+    database.commit()
+    database.close()
+    return True
+
+def delete_data(courseCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+
+    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
+    course = cursor.fetchone()
+    if (course == None):
+        print("Error in delete_data(): courseCRN " + str(courseCRN) + " not found.")
+        return False
+    else:
+        cursor.execute("DELETE FROM COURSE WHERE CRN = '" + courseCRN + "'")
+        database.commit()
+        database.close()
+        return True
 
 #returns True if student successfully removed from roster, False otherwise
 def remove_from_roster(studentID, courseCRN):
@@ -356,8 +289,21 @@ def check_if_student_in_roster(studentID, courseCRN):
             return True
     
     return False
+
+def check_if_course_exists(courseCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+
+    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
+    course = cursor.fetchone()
+
+    if (course == None):
+        return False
+    else:
+        return True
+    
+    return False
         
-       
 def print_roster(courseCRN):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()

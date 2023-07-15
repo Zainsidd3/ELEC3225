@@ -113,8 +113,7 @@ def main():
             defaultlogin(loggedInUser)
         elif (userInput == 5):
             #quit
-            exit = True
             print("Exiting...")
-            break
+            quit()
 
 main()

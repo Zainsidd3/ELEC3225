@@ -71,7 +71,7 @@ class student(user):
             print("Add yourself to a course roster")
             CRN = input("Enter the CRN of the course you'd like to add: ")
             if (check_if_student_in_roster(self.ID, CRN)):
-                print("You already in this course.")
+                print("You're already in this course.")
                 return
             else:
                 if (add_to_roster(self.ID, CRN)):
@@ -105,10 +105,7 @@ class instructor(user):
 
 class admin(user):
     pass
-    #def add_course(self, course_id, course_name):
-    #    #add a course using the course's id and name
-    #    print("Called admin.add_course() with course_id", str(course_id), "and course_name", course_name)
-    def modify_course(self, course_id, course_name):
+    def modify_course(self):
         print("1 - Add a course\n2 - Remove a course\n3 - Go back to main menu")
         userInput = 0
         while (userInput > 3 or userInput < 1):
@@ -119,24 +116,34 @@ class admin(user):
         if (userInput == 1):
             # add to a course
             print("Add a course")
-            CRN = input("Enter the CRN of the course you'd like to add: ")
-            if (check_if_student_in_roster(self.ID, CRN)):
-                print("You already in this course.")
+            CRN = input("Check to see if course already exists (Enter CRN): ")
+            if (check_if_course_exists(CRN)):
+                print("This course already exists.")
                 return
             else:
-                if (add_to_roster(self.ID, CRN)):
-                    print("You have successfully been added to course #" + CRN + ".")
+                attributes = ["CRN", "TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS", "INSTRUCTOR", "ROSTER"]
+                data = "("
+                counter = 0
+                for i in attributes:
+                    data = data + "'" + str(input("Enter " + i + ": ")) + "'"
+                    if counter != len(attributes) - 1:
+                            data = data + ", "
+                    counter = counter + 1
+                data = data + ")"
+                
+                if (insert_course_data(CRN, data)):
+                    print("You have successfully added course #" + CRN + ".")
                 return
         
         elif (userInput == 2):
             # remove from a course
             print("Remove a course")
-            CRN = input("Enter the CRN of the course you'd like to remove yourself from: ")
-            if (not check_if_student_in_roster(self.ID, CRN)):
-                print("You are not in this course.")
+            CRN = input("Enter the CRN of the course you'd like to remove: ")
+            if (not check_if_course_exists(CRN)):
+                print("This course does not exist.")
                 return
-            if (remove_from_roster(self.ID, CRN)):
-                print("You have been successfully removed from course #" + CRN + ".")
+            if (delete_data(CRN)):
+                print("You have sucessfully removed course #" + CRN + ".")
             return
 
     #def add_user(self, new_user_id):
