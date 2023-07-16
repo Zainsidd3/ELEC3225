@@ -52,5 +52,30 @@ class Tests(unittest.TestCase):
     def test_invalid_delete_course(self):
         self.assertFalse(delete_data("NOTACRN"))
 
+    def test_print_roster(self):
+        courseCRN = "001"  # Replace with the desired course CRN to test
+        students = print_roster(courseCRN)
+        self.assertIsNotNone(students)  # Check if the roster is not None
+        self.assertIsInstance(students, list)  # Check if the roster is a list
+
+    def test_print_roster_contains_student(self):
+        courseCRN = "001"  # Replace with the desired course CRN to test
+        expectedStudentID = "10002"  # Replace with the expected student ID in the roster
+
+        students = print_roster(courseCRN)
+        self.assertIsNotNone(students)  # Check if the roster is not None
+        self.assertIsInstance(students, list)  # Check if the roster is a list
+
+        studentFound = False
+        for student in students:
+            if expectedStudentID in student:
+                studentFound = True
+                break
+
+        self.assertTrue(studentFound)  # Check if the expected student ID is found in the roster
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
