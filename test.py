@@ -41,10 +41,10 @@ class Tests(unittest.TestCase):
             search("COURSE", "AAAAA", "001")
     
     def test_successful_add_course(self):
-        self.assertTrue(insert_course_data("123", ["123", "Social Sciences", "PSYC", "1000", "WF", "Fall", "2023", "3", "Nobody", "0"]))
+        self.assertTrue(insert_course_data("123", ("123", "Social Sciences", "PSYC", "1000", "WF", "Fall", "2023", "3", "Nobody", "0")))
 
     def test_invalid_add_course(self):
-        self.assertFalse(insert_course_data("001", ["001", "Intro to Engineering", "BSCO", "1200", "MWF", "Spring", "2024", "3", "Nelson", "0"]))
+        self.assertFalse(insert_course_data("001", ("001", "Intro to Engineering", "BSCO", "1200", "MWF", "Spring", "2024", "3", "Nelson", "0")))
 
     def test_successful_delete_course(self):
         self.assertTrue(delete_data("123"))
