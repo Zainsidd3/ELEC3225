@@ -88,9 +88,13 @@ class student(user):
                 print("You have been successfully removed from course #" + CRN + ".")
             return
 
-    #def print_schedule(self):
-    #    #print the student's schedule
-    #    print("Called student.print_schedule()")
+    def print_schedule(self):
+        #print the student's schedule
+        print("Called student.print_schedule()")
+
+    def check_for_conflicts(self):
+        #check the student's schedule for conflicts
+        print("Called student.check_for_conflicts()")
 
 
 class instructor(user):
@@ -115,9 +119,12 @@ class instructor(user):
                 for student in students:
                     print(student)
             return []
+    
+    def print_schedule():
+        #print the instructor's teaching schedule
+        print("Called instructor.print_schedule()")
 
 class admin(user):
-    pass
     def modify_course(self):
         print("1 - Add a course\n2 - Remove a course\n3 - Go back to main menu")
         userInput = 0
@@ -159,22 +166,26 @@ class admin(user):
                 print("You have sucessfully removed course #" + CRN + ".")
             return
 
-    #def add_user(self, new_user_id):
-    #    #add a user to the system
-    #    print("Called admin.add_user() with new_user_id", str(new_user_id))
+    def add_user(self):
+        #add a user to the system
+        print("Called admin.add_user()")
 
-    #def remove_user(self, user_id):
-    #    #remove a user from the system
-    #    print("Called admin.remove_user() with user_id", str(user_id))
+    def remove_user(self):
+        #remove a user from the system
+        print("Called admin.remove_user()")
 
-    #def add_to_course(self, student_id, course_id):
-    #    #add a user to a course using the student's id and the course's id
-    #    print("Called admin.add_to_course() with student id", str(student_id), "and course_id", str(course_id))
+    def add_student_to_course(self):
+        #add a student to a course
+        print("Called admin.add_student_to_course()")
 
-    #def remove_from_course(self, student_id, course_id):
-    #    #remove a user from a course using the student's id and the course's id
-    #    print("Called admin.remove_from_course() with student id", str(student_id), "and course_id", str(course_id))
+    def remove_student_from_course(self):
+        #remove a student from a course
+        print("Called admin.remove_student_from_course()")
 
-    #def search_for_course(self, course_name):
-    #    #search for a course using the course's name
-    #    print("Called admin.search_for_course() with course_name", course_name)
+    def add_instructor_to_course(self):
+        #add an instructor to a course
+        print("Called admin.add_instructor_to_course()")
+
+    def remove_instructor_from_course(self):
+        #remove an instructor from a course
+        print("Called admin.remove_instructor_from_course()")
