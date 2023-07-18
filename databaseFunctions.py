@@ -217,3 +217,16 @@ def print_roster(courseCRN):
         students.append(studentInfo)
     
     return students
+
+def get_student_course_list(studentID):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    cursor.execute("SELECT CRN FROM COURSE")
+    allCourses = cursor.fetchall()
+
+    studentCourses = []
+    for i in allCourses:
+        if (check_if_student_in_roster(studentID, i[0])):
+            studentCourses.append(i[0])
+
+    return studentCourses

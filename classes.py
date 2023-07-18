@@ -141,16 +141,64 @@ class admin(user):
                 print("This course already exists.")
                 return
             else:
-                attributes = ["CRN", "TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS", "INSTRUCTOR", "ROSTER"]
-                data = "("
+                attributes = ["TITLE", "DEPT", "TIME", "DAYS", "SEMESTER", "YEAR", "CREDITS", "INSTRUCTOR", "ROSTER"]
+                data = "('" + CRN + "', "
                 counter = 0
                 for i in attributes:
-                    data = data + "'" + str(input("Enter " + i + ": ")) + "'"
+                    if (i == "TIME"):
+                        startTime = -1
+                        while (int(startTime) < 0 or int(startTime) > 2400):
+                            startTime = str(input("Enter start time for the course (24 hour format, e.g. 1:30pm = 1330): "))
+                            if (int(startTime) < 0 or int(startTime) > 2400):
+                                print("Entered invalid start time, please try again.")
+                        endTime = -1
+                        while (int(endTime) < 0 or int(endTime) > 2400 or int(endTime) < int(startTime)):
+                            endTime = str(input("Enter end time for the course (24 hour format, e.g. 1:30pm = 1330): "))
+                            if (int(startTime) < 0 or int(startTime) > 2400):
+                                print("Entered invalid end time, please try again.")
+                            if (int(endTime) < int(startTime)):
+                                print("End time must be after the start time, please try again.")
+                        newData = startTime + "-" + endTime
+                    elif (i == "DAYS"):
+                        days = []
+                        while (days == []):
+                            daysStr = input("Enter the days of the course in MTWRF format (e.g. 'MRF' = Monday+Thursday+Friday, case sensitive):")
+                            for i in daysStr:
+                                if (i == "M" or i == "T" or i == "W" or i == "R" or i == "F"):
+                                    if i in days:
+                                        print("Duplicate day detected, please try again.")
+                                        days = []
+                                        break
+                                    else: 
+                                        days.append(i)
+                                else:
+                                    print("Unknown day detected (" + i + "), please try again.")
+                                    days = []
+                                    break
+                        #put list in order
+                        correctOrder = ["M", "T", "W", "R", "F"]
+                        newData = ""
+                        for i in correctOrder:
+                            if i in days:
+                                newData = newData + i
+                    elif (i == "SEMESTER"):
+                        semester = ""
+                        while (semester != "Su" and semester != "Sp" and semester != "F"):
+                            semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive):"))
+                            if (semester != "Su" and semester != "Sp" and semester != "F"):
+                                print("Invalid input, please try again.")
+                    elif (i != "INSTRUCTOR" and i != "ROSTER"):
+                        newData = str(input("Enter " + i + ": "))
+                    else:
+                        newData = ""
+
+                    data = data + "'" + newData + "'"
                     if counter != len(attributes) - 1:
                             data = data + ", "
                     counter = counter + 1
                 data = data + ")"
                 
+                print(data)
                 if (insert_course_data(CRN, data)):
                     print("You have successfully added course #" + CRN + ".")
                 return
