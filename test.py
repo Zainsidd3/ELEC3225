@@ -1,7 +1,7 @@
 import unittest
 
 from databaseFunctions import *
-
+from classes import *
 
 class Tests(unittest.TestCase):
     def test_successful_login(self):              # Test successful login with correct credentials
@@ -9,6 +9,17 @@ class Tests(unittest.TestCase):
 
     def test_failed_login(self):                  # Test failed login with incorrect password
         self.assertFalse(check_login_credentials("hamiltonm", "wrongpassword"))
+
+    def test_logout(self):                        # Test successful logout
+        #set up a mock logged in user
+        loggedInUser = user()
+        loggedInUser.set_id(999)
+        loggedInUser.set_first_name("TEST")
+        loggedInUser.set_last_name("USER")
+        
+        #logout the user
+        loggedInUser = user()
+        self.assertTrue(loggedInUser.get_ID() == 0)
 
     def test_successful_add(self):                # Test successful addition of a student to a course roster
         self.assertTrue(add_to_roster(999, "001"))
