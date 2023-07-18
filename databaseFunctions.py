@@ -1,4 +1,3 @@
-from calendar import c
 import sqlite3
 
 def check_login_credentials(email, password):
@@ -112,37 +111,6 @@ def search(table, attribute, query):
 
     return query_result
 
-    database.close()
-
-def update_data():
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    print("Selected: Update Data")
-    databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
-    databasesKeyVal = ["ID", "ID", "ID", "CRN"]
-    counter = 0
-    for i in databases:
-        print (str(counter) + " - " + str(i))
-        counter = counter + 1
-    try:
-        dbSelection = int(input("Select database to update input from (0-3 or press Q to quit): "))
-    except:
-        print("Returning to main function")
-        return
-    if (dbSelection > 3) or (dbSelection < 0):
-        print("Input out of range 0-3, returning to main function and try again")
-        return
-    try: 
-        ("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
-
-    except:
-        print("Returning to main function")
-        return
-    if (dbSelection == 0):
-        ("UPDATE ADMIN SET title = 'Vice-President' WHERE id=30002;")
-        print("ADMIN Title Was Succesfully Updated")
-        return            
-    database.commit()
     database.close()
 
 def match_instructors():

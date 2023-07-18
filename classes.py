@@ -1,4 +1,3 @@
-from distutils.command.check import check
 from databaseFunctions import *
 
 class user:
