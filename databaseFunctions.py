@@ -138,6 +138,7 @@ def remove_from_roster(studentID, courseCRN):
         return True
 
 
+# returns True if the given student is in the roster of course #courseCRN, False otherwise
 def check_if_student_in_roster(studentID, courseCRN):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
@@ -169,6 +170,7 @@ def check_if_student_in_roster(studentID, courseCRN):
     
     return False
 
+# returns True if the course exist, False otherwise
 def check_if_course_exists(courseCRN):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
@@ -180,7 +182,8 @@ def check_if_course_exists(courseCRN):
         return False
     else:
         return True
-        
+       
+# returns a list with the info of all of the students in the given course 
 def print_roster(courseCRN):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
@@ -218,15 +221,19 @@ def print_roster(courseCRN):
     
     return students
 
-def get_student_course_list(studentID):
+# returns a list of all of the courses the given student is enrolled in, in the given semester + year
+# studentID - the ID of the student to check
+# semester - expecting Sp, Su, or F (Spring, Summer, Fall)
+# year - the year of the schedule to check
+def get_student_course_list(studentID, semester, year):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
-    cursor.execute("SELECT CRN FROM COURSE")
+    cursor.execute("SELECT CRN, SEMESTER, YEAR FROM COURSE")
     allCourses = cursor.fetchall()
 
     studentCourses = []
     for i in allCourses:
-        if (check_if_student_in_roster(studentID, i[0])):
+        if (check_if_student_in_roster(studentID, i[0]) and semester == i[1] and year == i[2]):
             studentCourses.append(i[0])
 
     return studentCourses
