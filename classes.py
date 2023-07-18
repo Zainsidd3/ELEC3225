@@ -129,7 +129,7 @@ class admin(user):
         if (userInput == 1):
             # add to a course
             print("Add a course")
-            CRN = input("Check to see if course already exists (Enter CRN): ")
+            CRN = input("Enter the CRN for the new course: ")
             if (check_if_course_exists(CRN)):
                 print("This course already exists.")
                 return

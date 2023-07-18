@@ -7,75 +7,11 @@ def check_login_credentials(email, password):
     cursor.execute("SELECT COUNT(*) FROM LOGINS WHERE ID=? AND PASSWORD=?", (email, password))
     login_count = cursor.fetchone()[0]
 
+    database.close()
     if login_count > 0:
         return True
     else:
         return False
-    database.commit()
-    database.close()
-
-def create_table():
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    print("Creating a new table.")
-    tableName = input("Enter table name: ")
-    numAttributes = ""
-    while (type(numAttributes) != int):
-        try:
-            numAttributes = int(input("Enter number of attributes for the table: "))
-        except: 
-            print("Error: Input not an integer")
-    if (numAttributes <= 0):
-        print("Number of attributes not a positive integer, cancelling table creation")
-        return
-    print(numAttributes)
-    createCmd = """CREATE TABLE """ + tableName + """ (  """ + input("Enter name of the key value attribute for the table: ") + """ PRIMARY KEY NOT NULL,"""
-    for i in range(2, numAttributes+1):
-        print("Attribute #" + str(i))
-        textOrNumber = ""
-        while (textOrNumber != 1 and textOrNumber != 2):
-            textOrNumber = int(input("Enter a 1 for the attribute to be text, or a 2 for it to be a number: "))
-            while type(textOrNumber) != int:
-                try:
-                    textOrNumber = int(input("Try again: "))
-                except:
-                    print("Error: Input not an integer")
-        textOrNumberStr = ""
-        if textOrNumber == 1:
-            print("Selected: TEXT")
-            textOrNumberStr == " TEXT"
-        else:
-            print("Selected: NUMBER")
-            textOrNumberStr = " NUMBER"
-        createCmd = createCmd + input("Attribute name: ") + textOrNumberStr + " NOT NULL"
-        if i != numAttributes:
-            createCmd = createCmd + ""","""
-        else:
-            createCmd = createCmd + """);"""
-
-    try:
-        cursor.execute(createCmd)
-    except:
-        print("Table " + tableName + " already exists.")
-    database.commit()
-    database.close()
-
-def print_tables():
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    print("Printing all tables")
-    databases = ["ADMIN", "INSTRUCTOR", "STUDENT", "COURSE"]
-    for i in databases:
-        try:
-            print("\nPrinting table " + i)
-            cursor.execute("SELECT * FROM " + i)
-            query_result = cursor.fetchall()
-            for j in query_result:
-                print(j)
-        except:
-            print("Error: Missing table " + i + ", continuing.")
-    database.commit()
-    database.close()
 
 #print one table
 def print_table(table):
@@ -111,31 +47,6 @@ def search(table, attribute, query):
 
     return query_result
 
-    database.close()
-
-def match_instructors():
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    print("Selected: Match instructors to courses")
-    courseCRN = str(input("Enter course CRN to find potential instructors: "))
-    cursor.execute("""SELECT * FROM COURSE WHERE CRN = '""" + courseCRN + """'""")
-    query_result = cursor.fetchall()
-    if (len(query_result) == 1):
-        print("Selected course:")
-        print(query_result[0])
-    else:
-        print("No course found, returning to main.")
-        return
-
-    print("Finding potential professors for course #" + courseCRN + "...")
-    cursor.execute("""SELECT * FROM INSTRUCTOR WHERE DEPT = '""" + query_result[0][2] + """'""")
-    query_result = cursor.fetchall()
-    if (len(query_result) == 0):
-        print("No matching professors found in database.")
-        return
-    for i in query_result:
-        print(i)
-    database.commit()
     database.close()
 
 #returns True if student successfully added to roster, False otherwise
@@ -269,8 +180,6 @@ def check_if_course_exists(courseCRN):
         return False
     else:
         return True
-    
-    return False
         
 def print_roster(courseCRN):
     database = sqlite3.connect("database.db")
