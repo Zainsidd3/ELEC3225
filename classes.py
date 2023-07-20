@@ -202,7 +202,6 @@ class admin(user):
                 if (insert_course_data(CRN, data)):
                     print("You have successfully added course #" + CRN + ".")
                 return
-        
         elif (userInput == 2):
             # remove from a course
             print("Remove a course")
@@ -214,13 +213,50 @@ class admin(user):
                 print("You have sucessfully removed course #" + CRN + ".")
             return
 
-    def add_user(self):
+    def add_account(self):
         #add a user to the system
-        print("Called admin.add_user()")
+        email = input("Enter the email address: ")
 
-    def remove_user(self):
-        #remove a user from the system
-        print("Called admin.remove_user()")
+        if (not check_email_exists(email)):
+            print("Account type: ")
+            print("1 - Student")
+            print("2 - Instructor")
+            account_type = input("Enter the account type: ")
+
+            if account_type == "1":
+                student_info = (
+                    input("Enter ID: "),
+                    input("Enter NAME: "),
+                    input("Enter SURNAME: "),
+                    input("Enter GRADYEAR: "),
+                    input("Enter MAJOR: "),
+                    email
+                )
+                password = input("Please enter the password for the new account: ")
+                add_student(email, student_info, password)
+                print("Student account added successfully.")
+            elif account_type == "2":
+                instructor_info = (
+                    input("Enter ID: "),
+                    input("Enter NAME: "),
+                    input("Enter SURNAME: "),
+                    input("Enter TITLE: "),
+                    input("Enter HIREYEAR: "),
+                    input("Enter DEPT: "),
+                    email
+                )
+                password = input("Please enter the password for the new account: ")
+                add_instructor(email, instructor_info, password)
+                print("Instructor account added successfully.")
+            else:
+                print("Invalid account type. Please try again.")
+        else:
+            print("Email address already exists in the database.")
+
+    def remove_account(self):
+        email = input("Enter the email address of the account you would like to remove: ")
+        remove_account(email)
+
 
     def add_student_to_course(self):
         #add a student to a course

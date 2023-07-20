@@ -1,5 +1,126 @@
 import sqlite3
 
+# ---------------------------- ADMIN FUNCTIONS ---------------------------- #
+
+def check_if_course_exists(courseCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+
+    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
+    course = cursor.fetchone()
+
+    if (course == None):
+        return False
+    else:
+        return True
+
+def insert_course_data(courseCRN, data):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    if (check_if_course_exists(courseCRN)):
+        print("Error in add_to_roster(): Course CRN#" + str(courseCRN) + " already exists")
+        return False
+    try:
+        cursor.execute(f"INSERT INTO COURSE VALUES {data}")
+        database.commit()
+        print("Data inserted successfully.")
+    except Exception as e:
+        print("Error: Failed to insert data.")
+        print(e)
+    database.commit()
+    database.close()
+    return True
+
+def delete_data(courseCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+
+    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
+    course = cursor.fetchone()
+    if (course == None):
+        print("Error in delete_data(): courseCRN " + str(courseCRN) + " not found.")
+        return False
+    else:
+        cursor.execute("DELETE FROM COURSE WHERE CRN = '" + courseCRN + "'")
+        database.commit()
+        database.close()
+        return True
+
+def check_email_exists(email):
+        # Check if the email exists in STUDENT, INSTRUCTOR, or LOGINS tables
+        database = sqlite3.connect("database.db")
+        cursor = database.cursor()
+        cursor.execute("SELECT COUNT(*) FROM STUDENT WHERE EMAIL=?", (email,))
+        student_count = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM INSTRUCTOR WHERE EMAIL=?", (email,))
+        instructor_count = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM LOGINS WHERE ID=?", (email,))
+        login_count = cursor.fetchone()[0]
+
+        database.close()
+
+        return student_count + instructor_count + login_count > 0
+
+def add_instructor(email, instructor_info, password):
+        # Insert the instructor info into the INSTRUCTORS table
+        database = sqlite3.connect("database.db")
+        cursor = database.cursor()
+        cursor.execute("INSERT INTO INSTRUCTOR (ID, NAME, SURNAME, TITLE, HIREYEAR, DEPT, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?)", instructor_info)
+        database.commit()
+
+        cursor.execute("INSERT INTO LOGINS (ID, PASSWORD) VALUES (?,?)", (email, password))
+        database.commit()
+        database.close()
+
+def add_student(email, student_info, password):
+        # Insert the student info into the STUDENTS table
+        database = sqlite3.connect("database.db")
+        cursor = database.cursor()
+        cursor.execute("INSERT INTO STUDENT (ID, NAME, SURNAME, GRADYEAR, MAJOR, EMAIL) VALUES (?, ?, ?, ?, ?, ?)", student_info)
+        database.commit()
+
+        cursor.execute("INSERT INTO LOGINS (ID, PASSWORD) VALUES (?,?)", (email, password))
+        database.commit()
+        database.close()
+
+def remove_account(email):
+        database = sqlite3.connect("database.db")
+        cursor = database.cursor()
+        cursor.execute("SELECT COUNT(*) FROM STUDENT WHERE EMAIL=?", (email,))
+        student_count = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM INSTRUCTOR WHERE EMAIL=?", (email,))
+        instructor_count = cursor.fetchone()[0]
+
+        # Checks for STUDENT account
+        if student_count > 0:
+            cursor.execute("SELECT ID FROM STUDENT WHERE EMAIL=?", (email,))
+            student_id = cursor.fetchone()[0]
+
+            cursor.execute("DELETE FROM STUDENT WHERE EMAIL=?", (email,))
+            database.commit()
+            cursor.execute("DELETE FROM LOGINS WHERE ID=?", (email,))
+            database.commit()
+            print("Student account removed successfully.")
+
+        # Checks for INSTRUCTOR account
+        elif instructor_count > 0:
+            cursor.execute("SELECT NAME FROM INSTRUCTOR WHERE EMAIL=?", (email,))
+            instructor_name = cursor.fetchone()[0]
+
+            cursor.execute("DELETE FROM INSTRUCTOR WHERE EMAIL=?", (email,))
+            database.commit()
+            cursor.execute("DELETE FROM LOGINS WHERE ID=?", (email,))
+            database.commit()
+            print("Instructor account removed successfully.")
+
+        # No account found
+        else:
+            print("Email address not found...")
+        database.close()
+
+# ------------------------------------------------------------------------- #
+
+
 def check_login_credentials(email, password):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
@@ -70,38 +191,6 @@ def add_to_roster(studentID, courseCRN):
     database.close()
     return True
 
-def insert_course_data(courseCRN, data):
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-    if (check_if_course_exists(courseCRN)):
-        print("Error in add_to_roster(): Course CRN#" + str(courseCRN) + " already exists")
-        return False
-    try:
-        cursor.execute(f"INSERT INTO COURSE VALUES {data}")
-        database.commit()
-        print("Data inserted successfully.")
-    except Exception as e:
-        print("Error: Failed to insert data.")
-        print(e)
-    database.commit()
-    database.close()
-    return True
-
-def delete_data(courseCRN):
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-
-    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
-    course = cursor.fetchone()
-    if (course == None):
-        print("Error in delete_data(): courseCRN " + str(courseCRN) + " not found.")
-        return False
-    else:
-        cursor.execute("DELETE FROM COURSE WHERE CRN = '" + courseCRN + "'")
-        database.commit()
-        database.close()
-        return True
-
 #returns True if student successfully removed from roster, False otherwise
 def remove_from_roster(studentID, courseCRN):
     database = sqlite3.connect("database.db")
@@ -169,19 +258,6 @@ def check_if_student_in_roster(studentID, courseCRN):
             return True
     
     return False
-
-# returns True if the course exist, False otherwise
-def check_if_course_exists(courseCRN):
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-
-    cursor.execute("SELECT * FROM COURSE WHERE CRN = '" + courseCRN + "'")
-    course = cursor.fetchone()
-
-    if (course == None):
-        return False
-    else:
-        return True
        
 # returns a list with the info of all of the students in the given course 
 def print_roster(courseCRN):
