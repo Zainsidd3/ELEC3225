@@ -90,7 +90,44 @@ class student(user):
 
     def print_schedule(self):
         #print the student's schedule
-        print("Called student.print_schedule()")
+        semester = ""
+        while (semester != "Su" and semester != "Sp" and semester != "F"):
+            semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive):"))
+            if (semester != "Su" and semester != "Sp" and semester != "F"):
+                print("Invalid input, please try again.")
+        year = 0
+        while (year <= 0):
+            try:
+                year = int(input("Enter year: "))
+            except:
+                print("Input not an int, please try again.")
+                continue
+            if (year <= 0):
+                print("Invalid input, please try again.")
+        schedule = get_student_course_list(self.ID, semester, year)
+        if (len(schedule) == 0):
+            print("Not registered for any classes in the " + str(year) + " " + semester + " semester.")
+            return
+        mondayCourses = []
+        tuesdayCourses = []
+        wednesdayCourses = []
+        thursdayCourses = []
+        fridayCourses = []
+        dayCourses = [mondayCourses, tuesdayCourses, wednesdayCourses, thursdayCourses, fridayCourses]
+        days = ["M", "T", "W", "R", "F"]
+        for i in schedule:
+            for j in range(len(days)):
+                if days[j] in i[2]:
+                    dayCourses[j].append(i[0] + "; Time: " + i[1])
+
+        for i in range(len(days)):
+            if (len(dayCourses[i]) == 0):
+                print("No courses on " + days[i] + ".")
+                continue
+            print(days[i] + " Schedule:") 
+            for j in dayCourses[i]:
+                print(j)
+        return
 
     def check_for_conflicts(self):
         #check the student's schedule for conflicts
@@ -187,6 +224,7 @@ class admin(user):
                             semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive):"))
                             if (semester != "Su" and semester != "Sp" and semester != "F"):
                                 print("Invalid input, please try again.")
+                        newData = semester
                     elif (i != "INSTRUCTOR" and i != "ROSTER"):
                         newData = str(input("Enter " + i + ": "))
                     else:

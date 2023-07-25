@@ -71,7 +71,7 @@ class Tests(unittest.TestCase):
 
     def test_print_roster_contains_student(self):
         courseCRN = "001"  # Replace with the desired course CRN to test
-        expectedStudentID = "10002"  # Replace with the expected student ID in the roster
+        expectedStudentID = "10009"  # Replace with the expected student ID in the roster
 
         students = print_roster(courseCRN)
         self.assertIsNotNone(students)  # Check if the roster is not None

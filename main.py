@@ -49,19 +49,25 @@ def main():
         print("1 - Display all courses\n2 - Search courses by parameters")
         if (userType == "STUDENT"):
             print("3 - Add/remove course from semester schedule")
-            numSelections = numSelections + 1
+            print("4 - Check semester schedule")
+            numSelections = numSelections + 2
         elif (userType == "ADMIN"):
             print("3 - Add/remove courses from system")
             numSelections = numSelections + 1
         elif (userType == "INSTRUCTOR"):
             print("3 - Assemble/Print Course Roster")
             numSelections = numSelections + 1
+<<<<<<< HEAD
         if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
             print("4 - Log Out\n5 - Quit")
         # Admin Selection Options
         elif (userType == "ADMIN"):
             print("4 - Add/ Remove User(s)\n5 - Log Out\n6 - Quit")
             numSelections = numSelections + 1
+=======
+        print(str(numSelections - 1) + " - Log Out")
+        print(str(numSelections) + " - Quit")
+>>>>>>> 7c21171c7008349db2a034fd10ab9202d039ad09
 
         userInput = ""
         # Get menu selection from user and check that it's valid
@@ -91,6 +97,7 @@ def main():
             elif (userType == "INSTRUCTOR"):
                 #assemble/print course roster
                 loggedInUser.print_class_list()
+<<<<<<< HEAD
         elif (userInput == 4):
             if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
                 print("Logging Out...")
@@ -110,6 +117,15 @@ def main():
                 elif (choice == 2):
                     loggedInUser.remove_account()
         elif (userInput == 5):
+=======
+        elif (userInput == 4 and userType == "STUDENT"):
+            #print semester schedule
+            loggedInUser.print_schedule()
+        elif (userInput == numSelections - 1):
+            print("Logging Out...")
+            defaultlogin(loggedInUser)
+        elif (userInput == numSelections):
+>>>>>>> 7c21171c7008349db2a034fd10ab9202d039ad09
             #quit
             if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
                 print("Exiting...")
