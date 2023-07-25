@@ -315,3 +315,39 @@ def get_student_course_list(studentID, semester, year):
             studentCourses.append(courseInfo)
 
     return studentCourses
+
+#returns True if conflicts detected on adding a new course, False otherwise
+def check_for_conflicts(studentID, newCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    cursor.execute("SELECT SEMESTER, YEAR, TIME, DAYS FROM COURSE WHERE CRN = '" + newCRN + "'")
+    newCourse = cursor.fetchone()
+    newCourseTime = get_course_times(newCRN)
+    newCourseStartTime = newCourseTime[0]
+    newCourseEndTime = newCourseTime[1]
+    
+    courses = get_student_course_list(studentID, newCourse[0], newCourse[1])
+
+    
+        
+
+#returns an array of ints [startTime, endTime]
+def get_course_times(CRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    cursor.execute("SELECT TIME FROM COURSE WHERE CRN = '" + CRN + "'")
+    time = cursor.fetchone()
+    startTime = ""
+    startTimeDone = False
+    endTime = ""
+    for i in time:
+        if (i == "-"):
+            startTimeDone = True
+            continue
+        else:
+            if (not startTimeDone):
+                startTime = startTime + i
+            else:
+                endTime = endTime + i
+
+    return [int(startTime), int(endTime)]
