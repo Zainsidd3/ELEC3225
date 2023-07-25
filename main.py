@@ -4,27 +4,6 @@ from databaseFunctions import *
 database = sqlite3.connect("database.db")
 cursor = database.cursor()
 
-# ADDING USER INFO TO LOGINS TABLE
-#def add_login(email, password):
-#    # Insert the email and password into the LOGINS table
-#    cursor.execute("INSERT INTO LOGINS (ID, PASSWORD) VALUES (?, ?)", (email, password))
-#    database.commit()
-
-#def add_new_login():
-#    email = input("Enter new email address: ")
-#    password = input("Enter the password for new account: ")
-
-#    add_login(email, password)
-#    print("Login details added to the LOGINS table.")
-
-#while True:
-#    add_new_login()
-
-#    choice = input("Continue? (y/n): ")
-#    if choice.lower() != 'y':
-#        break
-
-# LOGIN STUFF
 def defaultlogin(loggedInUser):
     loggedInUser = user()
     main()
@@ -77,8 +56,12 @@ def main():
         elif (userType == "INSTRUCTOR"):
             print("3 - Assemble/Print Course Roster")
             numSelections = numSelections + 1
-        print("4 - Log Out")
-        print("5 - Quit")
+        if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
+            print("4 - Log Out\n5 - Quit")
+        # Admin Selection Options
+        elif (userType == "ADMIN"):
+            print("4 - Add/ Remove User(s)\n5 - Log Out\n6 - Quit")
+            numSelections = numSelections + 1
 
         userInput = ""
         # Get menu selection from user and check that it's valid
@@ -109,11 +92,34 @@ def main():
                 #assemble/print course roster
                 loggedInUser.print_class_list()
         elif (userInput == 4):
-            print("Logging Out...")
-            defaultlogin(loggedInUser)
+            if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
+                print("Logging Out...")
+                defaultlogin(loggedInUser)
+            elif (userType == "ADMIN"):
+                choice = ""
+                print("Would you like to add or remove an account?\n1 - Add\n2 - Remove")
+                while type(choice) != int:
+                    try:
+                        choice = int(input("Enter your selection: "))
+                    except:
+                        print("Error: Input not an integer")
+                if (choice > 2) or (choice < 1):
+                    print("Error: Input out of range. Please try again")
+                if (choice == 1):
+                    loggedInUser.add_account()
+                elif (choice == 2):
+                    loggedInUser.remove_account()
         elif (userInput == 5):
             #quit
-            print("Exiting...")
-            quit()
+            if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
+                print("Exiting...")
+                quit()
+            elif (userType == "ADMIN"):
+                print("Logging Out...")
+                defaultlogin(loggedInUser)
+        elif (userInput == 6):
+            if (userType == "ADMIN"):
+                print("Exiting...")
+                quit()
 
 main()

@@ -134,7 +134,7 @@ class admin(user):
             except:
                 print("Error, input unrecognized. Please try again.")
         if (userInput == 1):
-            # add to a course
+            # add a course
             print("Add a course")
             CRN = input("Enter the CRN for the new course: ")
             if (check_if_course_exists(CRN)):
@@ -203,7 +203,7 @@ class admin(user):
                     print("You have successfully added course #" + CRN + ".")
                 return
         elif (userInput == 2):
-            # remove from a course
+            # remove a course
             print("Remove a course")
             CRN = input("Enter the CRN of the course you'd like to remove: ")
             if (not check_if_course_exists(CRN)):
