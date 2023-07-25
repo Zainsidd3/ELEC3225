@@ -302,8 +302,6 @@ def check_if_student_in_roster(studentID, courseCRN):
     
     return False
 
-# ------------------------------------------------------------------------- #
-
 # returns a list of all of the courses the given student is enrolled in, in the given semester + year
 # studentID - the ID of the student to check
 # semester - expecting Sp, Su, or F (Spring, Summer, Fall)
@@ -322,3 +320,5 @@ def get_student_course_list(studentID, semester, year):
             studentCourses.append(courseInfo)
 
     return studentCourses
+
+# ------------------------------------------------------------------------- #

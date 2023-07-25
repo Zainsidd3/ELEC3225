@@ -45,29 +45,18 @@ def main():
 
     exit = False
     while (exit == False):
-        numSelections = 4
-        print("1 - Display all courses\n2 - Search courses by parameters")
+        # Student Selections
         if (userType == "STUDENT"):
-            print("3 - Add/remove course from semester schedule")
-            print("4 - Check semester schedule")
-            numSelections = numSelections + 2
+            numSelections = 6
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove course from semester schedule\n4 - Check semester schedule\n5 - Log Out\n6 - Quit")
+        # Admin Selections
         elif (userType == "ADMIN"):
-            print("3 - Add/remove courses from system")
-            numSelections = numSelections + 1
+            numSelections = 6
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove courses from system\n4 - Add/ Remove User(s)\n5 - Log Out\n6 - Quit")
+        # Instructor Selections
         elif (userType == "INSTRUCTOR"):
-            print("3 - Assemble/Print Course Roster")
-            numSelections = numSelections + 1
-<<<<<<< HEAD
-        if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
-            print("4 - Log Out\n5 - Quit")
-        # Admin Selection Options
-        elif (userType == "ADMIN"):
-            print("4 - Add/ Remove User(s)\n5 - Log Out\n6 - Quit")
-            numSelections = numSelections + 1
-=======
-        print(str(numSelections - 1) + " - Log Out")
-        print(str(numSelections) + " - Quit")
->>>>>>> 7c21171c7008349db2a034fd10ab9202d039ad09
+            numSelections = 5
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Assemble/Print Course Roster\n4 - Log Out\n5 - Quit")
 
         userInput = ""
         # Get menu selection from user and check that it's valid
@@ -79,14 +68,15 @@ def main():
         if (userInput > numSelections) or (userInput < 1):
             print("Error: Input out of range (0-" + str(numSelections) + "), please try again")
 
+        # Display all courses
         if (userInput == 1):
-            #display all courses
             print("Selected: Display all courses")
             loggedInUser.print_all_courses()
+        # Search courses by parameters
         elif (userInput == 2):
-            #search courses by parameters
             print("Selected: Search for a course")
             loggedInUser.search_for_course()
+
         elif (userInput == 3):
             if (userType == "STUDENT"):
                 #add/remove course from sem. schedule
@@ -97,9 +87,11 @@ def main():
             elif (userType == "INSTRUCTOR"):
                 #assemble/print course roster
                 loggedInUser.print_class_list()
-<<<<<<< HEAD
+
         elif (userInput == 4):
-            if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
+            if (userType == "STUDENT"):
+                loggedInUser.print_schedule()
+            elif (userType == "INSTRUCTOR"):
                 print("Logging Out...")
                 defaultlogin(loggedInUser)
             elif (userType == "ADMIN"):
@@ -116,26 +108,24 @@ def main():
                     loggedInUser.add_account()
                 elif (choice == 2):
                     loggedInUser.remove_account()
+        
         elif (userInput == 5):
-=======
-        elif (userInput == 4 and userType == "STUDENT"):
-            #print semester schedule
-            loggedInUser.print_schedule()
-        elif (userInput == numSelections - 1):
-            print("Logging Out...")
-            defaultlogin(loggedInUser)
-        elif (userInput == numSelections):
->>>>>>> 7c21171c7008349db2a034fd10ab9202d039ad09
-            #quit
-            if ((userType == "STUDENT") or (userType == "INSTRUCTOR")):
+            if (userType == "STUDENT"):
+                print("Logging Out...")
+                defaultlogin(loggedInUser)
+            elif (userType == "INSTRUCTOR"):
                 print("Exiting...")
                 quit()
             elif (userType == "ADMIN"):
                 print("Logging Out...")
                 defaultlogin(loggedInUser)
+
         elif (userInput == 6):
-            if (userType == "ADMIN"):
+            if (userType == "STUDENT"):
                 print("Exiting...")
                 quit()
-
+            elif (userType == "ADMIN"):
+                print("Exiting...")
+                quit()
+            
 main()
