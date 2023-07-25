@@ -310,6 +310,8 @@ def get_student_course_list(studentID, semester, year):
     studentCourses = []
     for i in allCourses:
         if (check_if_student_in_roster(studentID, i[0]) and semester == i[1] and year == i[2]):
-            studentCourses.append(i[0])
+            cursor.execute("SELECT TITLE, TIME, DAYS FROM COURSE WHERE CRN = '" + i[0] + "'")
+            courseInfo = cursor.fetchone()
+            studentCourses.append(courseInfo)
 
     return studentCourses

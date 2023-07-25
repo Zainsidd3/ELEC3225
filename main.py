@@ -70,15 +70,16 @@ def main():
         print("1 - Display all courses\n2 - Search courses by parameters")
         if (userType == "STUDENT"):
             print("3 - Add/remove course from semester schedule")
-            numSelections = numSelections + 1
+            print("4 - Check semester schedule")
+            numSelections = numSelections + 2
         elif (userType == "ADMIN"):
             print("3 - Add/remove courses from system")
             numSelections = numSelections + 1
         elif (userType == "INSTRUCTOR"):
             print("3 - Assemble/Print Course Roster")
             numSelections = numSelections + 1
-        print("4 - Log Out")
-        print("5 - Quit")
+        print(str(numSelections - 1) + " - Log Out")
+        print(str(numSelections) + " - Quit")
 
         userInput = ""
         # Get menu selection from user and check that it's valid
@@ -108,10 +109,13 @@ def main():
             elif (userType == "INSTRUCTOR"):
                 #assemble/print course roster
                 loggedInUser.print_class_list()
-        elif (userInput == 4):
+        elif (userInput == 4 and userType == "STUDENT"):
+            #print semester schedule
+            loggedInUser.print_schedule()
+        elif (userInput == numSelections - 1):
             print("Logging Out...")
             defaultlogin(loggedInUser)
-        elif (userInput == 5):
+        elif (userInput == numSelections):
             #quit
             print("Exiting...")
             quit()
