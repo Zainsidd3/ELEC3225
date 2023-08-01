@@ -71,7 +71,8 @@ def main():
         if (userType == "STUDENT"):
             print("3 - Add/remove course from semester schedule")
             print("4 - Check semester schedule")
-            numSelections = numSelections + 2
+            print("5 - Check semester schedule for conflicts")
+            numSelections = numSelections + 3
         elif (userType == "ADMIN"):
             print("3 - Add/remove courses from system")
             numSelections = numSelections + 1
@@ -112,6 +113,9 @@ def main():
         elif (userInput == 4 and userType == "STUDENT"):
             #print semester schedule
             loggedInUser.print_schedule()
+        elif (userInput == 5 and userType == "STUDENT"):
+            #check semester schedule for conflicts
+            loggedInUser.check_for_conflicts()
         elif (userInput == numSelections - 1):
             print("Logging Out...")
             defaultlogin(loggedInUser)
