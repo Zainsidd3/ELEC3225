@@ -92,7 +92,7 @@ class student(user):
         #print the student's schedule
         semester = ""
         while (semester != "Su" and semester != "Sp" and semester != "F"):
-            semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive):"))
+            semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive): "))
             if (semester != "Su" and semester != "Sp" and semester != "F"):
                 print("Invalid input, please try again.")
         year = 0
@@ -131,7 +131,28 @@ class student(user):
 
     def check_for_conflicts(self):
         #check the student's schedule for conflicts
-        print("Called student.check_for_conflicts()")
+        semester = ""
+        while (semester != "Su" and semester != "Sp" and semester != "F"):
+            semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive): "))
+            if (semester != "Su" and semester != "Sp" and semester != "F"):
+                print("Invalid input, please try again.")
+
+        year = 0
+        while (year <= 0):
+            try:
+                year = int(input("Enter year: "))
+            except:
+                print("Input not an int, please try again.")
+                continue
+            if (year <= 0):
+                print("Invalid input, please try again.")
+
+        conflicts = check_schedule_for_conflicts(self.ID, semester, str(year))
+        if (conflicts):
+            print("Conflicts found. You should unregister from courses in this semester/year to fix the issue.")
+        else:
+            print("No conflicts found.")
+        
 
 
 class instructor(user):
@@ -199,7 +220,7 @@ class admin(user):
                     elif (i == "DAYS"):
                         days = []
                         while (days == []):
-                            daysStr = input("Enter the days of the course in MTWRF format (e.g. 'MRF' = Monday+Thursday+Friday, case sensitive):")
+                            daysStr = input("Enter the days of the course in MTWRF format (e.g. 'MRF' = Monday+Thursday+Friday, case sensitive): ")
                             for i in daysStr:
                                 if (i == "M" or i == "T" or i == "W" or i == "R" or i == "F"):
                                     if i in days:
@@ -221,7 +242,7 @@ class admin(user):
                     elif (i == "SEMESTER"):
                         semester = ""
                         while (semester != "Su" and semester != "Sp" and semester != "F"):
-                            semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive):"))
+                            semester = str(input("Enter semester (Su = Summer, Sp = Spring, F = Fall, case sensitive): "))
                             if (semester != "Su" and semester != "Sp" and semester != "F"):
                                 print("Invalid input, please try again.")
                         newData = semester

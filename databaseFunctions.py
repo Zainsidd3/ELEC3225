@@ -321,4 +321,109 @@ def get_student_course_list(studentID, semester, year):
 
     return studentCourses
 
+# returns a list of all of the courses the given student is enrolled in, in the given semester + year + day
+# studentID - the ID of the student to check
+# semester - expecting Sp, Su, or F (Spring, Summer, Fall)
+# year - the year of the schedule to check
+# day - the day of classes to check
+def get_day_course_crns(studentID, semester, year, day):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    cursor.execute("SELECT CRN FROM COURSE WHERE SEMESTER = '" + semester + "' AND YEAR = '" + year + "'")
+    allCourses = cursor.fetchall()
+
+    courses = []
+    for i in allCourses:
+        if (not check_if_student_in_roster(studentID, i[0])):
+            continue
+        if day in get_course_days(i[0]):
+            courses.append(i[0])
+
+    return courses
+
+#returns True if conflicts detected on adding a new course, False otherwise
+def check_for_new_conflicts(studentID, newCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    cursor.execute("SELECT SEMESTER, YEAR, TIME, DAYS FROM COURSE WHERE CRN = '" + newCRN + "'")
+    newCourse = cursor.fetchone()
+    newCourseSemester = newCourse[0]
+    newCourseYear = newCourse[1]
+    newCourseTime = get_course_times(newCRN)
+    newCourseStartTime = int(newCourseTime[0])
+    newCourseEndTime = int(newCourseTime[1])
+    newCourseDays = get_course_days(newCRN)
+    
+    for day in newCourseDays:
+        courses = get_day_course_crns(studentID, newCourseSemester, newCourseYear, day)
+        for course in courses:
+            times = get_course_times(course)
+            # if new start time or new end time are between start and end time of an existing course
+            if ((newCourseStartTime >= times[0] and newCourseStartTime <= times[1]) or (newCourseEndTime >= times[0] and newCourseEndTime <= times[1])):
+                print("Error: New course overlaps with course #" + course)
+                return False
+            
+   
+    return True
+
+def check_schedule_for_conflicts(studentID, semester, year):
+    days = ["M", "T", "W", "R", "F"]
+    courseTimes = []
+    for day in days:
+        dayCourses = get_day_course_crns(studentID, semester, year, day)
+        dayTimes = []
+        for course in dayCourses:
+            dayTimes.append(get_course_times(course))
+        courseTimes.append(dayTimes)
+    
+    for daySchedule in courseTimes:
+        for i in range(len(daySchedule)):
+            #compare to all start/end times in current day
+            for j in range(len(daySchedule)):
+                #skip if comparing to current course
+                if (i == j):
+                    continue
+                if (daySchedule[i][0] >= daySchedule[j][0] and daySchedule[i][0] <= daySchedule[j][1] or daySchedule[i][1] >= daySchedule[j][0] and daySchedule[i][1] <= daySchedule[j][1]):
+                    return True
+
+    return False
+
+        
+
+#returns an array of ints [startTime, endTime]
+def get_course_times(CRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    cursor.execute("SELECT TIME FROM COURSE WHERE CRN = '" + CRN + "'")
+    time = cursor.fetchone()[0]
+    startTime = ""
+    startTimeDone = False
+    endTime = ""
+    for i in time:
+        if (i == "-"):
+            startTimeDone = True
+            continue
+        else:
+            if (not startTimeDone):
+                startTime = startTime + i
+            else:
+                endTime = endTime + i
+
+    return [int(startTime), int(endTime)]
+
+#returns of an array of the days for a course (e.g. ['M', 'W', 'R'])
+def get_course_days(CRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+    cursor.execute("SELECT DAYS FROM COURSE WHERE CRN = '" + CRN + "'")
+    days = cursor.fetchone()[0]
+
+    daysArr = []
+
+    for i in days:
+        daysArr.append(i)
+
+    return daysArr
+    return studentCourses
+
 # ------------------------------------------------------------------------- #
