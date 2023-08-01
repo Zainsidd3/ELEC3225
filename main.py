@@ -4,27 +4,6 @@ from databaseFunctions import *
 database = sqlite3.connect("database.db")
 cursor = database.cursor()
 
-# ADDING USER INFO TO LOGINS TABLE
-#def add_login(email, password):
-#    # Insert the email and password into the LOGINS table
-#    cursor.execute("INSERT INTO LOGINS (ID, PASSWORD) VALUES (?, ?)", (email, password))
-#    database.commit()
-
-#def add_new_login():
-#    email = input("Enter new email address: ")
-#    password = input("Enter the password for new account: ")
-
-#    add_login(email, password)
-#    print("Login details added to the LOGINS table.")
-
-#while True:
-#    add_new_login()
-
-#    choice = input("Continue? (y/n): ")
-#    if choice.lower() != 'y':
-#        break
-
-# LOGIN STUFF
 def defaultlogin(loggedInUser):
     loggedInUser = user()
     main()
@@ -66,21 +45,18 @@ def main():
 
     exit = False
     while (exit == False):
-        numSelections = 4
-        print("1 - Display all courses\n2 - Search courses by parameters")
+        # Student Selections
         if (userType == "STUDENT"):
-            print("3 - Add/remove course from semester schedule")
-            print("4 - Check semester schedule")
-            print("5 - Check semester schedule for conflicts")
-            numSelections = numSelections + 3
+            numSelections = 7
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove course from semester schedule\n4 - Check semester schedule\n5 - Check semester schedule for conflicts\n6 - Log Out\n7 - Quit")
+        # Admin Selections
         elif (userType == "ADMIN"):
-            print("3 - Add/remove courses from system")
-            numSelections = numSelections + 1
+            numSelections = 6
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove courses from system\n4 - Add/ Remove User(s)\n5 - Log Out\n6 - Quit")
+        # Instructor Selections
         elif (userType == "INSTRUCTOR"):
-            print("3 - Assemble/Print Course Roster")
-            numSelections = numSelections + 1
-        print(str(numSelections - 1) + " - Log Out")
-        print(str(numSelections) + " - Quit")
+            numSelections = 5
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Assemble/Print Course Roster\n4 - Log Out\n5 - Quit")
 
         userInput = ""
         # Get menu selection from user and check that it's valid
@@ -92,14 +68,15 @@ def main():
         if (userInput > numSelections) or (userInput < 1):
             print("Error: Input out of range (0-" + str(numSelections) + "), please try again")
 
+        # Display all courses
         if (userInput == 1):
-            #display all courses
             print("Selected: Display all courses")
             loggedInUser.print_all_courses()
+        # Search courses by parameters
         elif (userInput == 2):
-            #search courses by parameters
             print("Selected: Search for a course")
             loggedInUser.search_for_course()
+
         elif (userInput == 3):
             if (userType == "STUDENT"):
                 #add/remove course from sem. schedule
@@ -110,18 +87,53 @@ def main():
             elif (userType == "INSTRUCTOR"):
                 #assemble/print course roster
                 loggedInUser.print_class_list()
-        elif (userInput == 4 and userType == "STUDENT"):
-            #print semester schedule
-            loggedInUser.print_schedule()
-        elif (userInput == 5 and userType == "STUDENT"):
-            #check semester schedule for conflicts
-            loggedInUser.check_for_conflicts()
-        elif (userInput == numSelections - 1):
-            print("Logging Out...")
-            defaultlogin(loggedInUser)
-        elif (userInput == numSelections):
-            #quit
-            print("Exiting...")
-            quit()
+        elif (userInput == 4):
+            if (userType == "STUDENT"):
+                #print semester schedule
+                loggedInUser.print_schedule()
+            elif (userType == "INSTRUCTOR"):
+                #logout
+                print("Logging Out...")
+                defaultlogin(loggedInUser)
+            elif (userType == "ADMIN"):
+                #add/remove an account from system
+                choice = ""
+                print("Would you like to add or remove an account?\n1 - Add\n2 - Remove")
+                while type(choice) != int:
+                    try:
+                        choice = int(input("Enter your selection: "))
+                    except:
+                        print("Error: Input not an integer")
+                if (choice > 2) or (choice < 1):
+                    print("Error: Input out of range. Please try again")
+                if (choice == 1):
+                    loggedInUser.add_account()
+                elif (choice == 2):
+                    loggedInUser.remove_account()
+        elif (userInput == 5):
+            if (userType == "STUDENT"):
+                #check semester schedule for conflicts
+                loggedInUser.check_for_conflicts()
+            elif (userType == "INSTRUCTOR"):
+                #quit
+                print("Exiting...")
+                quit()
+            elif (userType == "ADMIN"):
+                #logout
+                print("Logging Out...")
+                defaultlogin(loggedInUser)
 
+        elif (userInput == 6):
+            if (userType == "STUDENT"):
+                print("Logging out...")
+                defaultlogin(loggedInUser)
+            elif (userType == "ADMIN"):
+                print("Exiting...")
+                quit()
+
+        elif (userInput == 7):
+            if (userType == "STUDENT"):
+                print("Exiting...")
+                quit()
+            
 main()
