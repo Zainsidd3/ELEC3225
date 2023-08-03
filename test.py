@@ -134,6 +134,17 @@ class Tests(unittest.TestCase):
         courseList = get_student_course_list(ID, semester, year)
         self.assertTrue(len(courseList) == 0)
 
+    def test_add_student(self):
+        self.assertTrue(add_student("kristofj", ("10021", "Justin", "Kristof", "2024", "BSCO", "kristofj"), "12345"))
+
+    def test_remove_student(self):
+        self.assertTrue(remove_account("kristofj"))
+
+    def test_add_instructor(self):
+        self.assertTrue(add_instructor("testi", ("20017", "Test", "Instructor", "Full Prof.", "2020", "HUSS", "testi"), "54321"))
+
+    def test_remove_instructor(self):
+        self.assertTrue(remove_account("testi"))
 
 
 if __name__ == '__main__':
