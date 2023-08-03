@@ -202,6 +202,51 @@ def remove_account(email):
         else:
             print("Email address not found...")
         database.close()
+def link_student_to_course(student_email, courseCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+
+    # Check if the student exists
+    if not check_email_exists(student_email):
+        print("Student with email", student_email, "does not exist.")
+        database.close()
+        return False
+
+    # Check if the course exists
+    if not check_if_course_exists(courseCRN):
+        print("Course with CRN", courseCRN, "does not exist.")
+        database.close()
+        return False
+
+    # Link student to course
+    if add_to_roster(student_email, courseCRN):
+        print("Student", student_email, "linked to course", courseCRN, "successfully.")
+    else:
+        print("Failed to link student to the course.")
+    
+    database.close()
+    return True
+
+def link_instructor_to_course(instructor_email, courseCRN):
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
+
+    # Check if the instructor exists
+    if not check_email_exists(instructor_email):
+        print("Instructor with email", instructor_email, "does not exist.")
+        database.close()
+        return False
+
+    # Check if the course exists
+    if not check_if_course_exists(courseCRN):
+        print("Course with CRN", courseCRN, "does not exist.")
+        database.close()
+        return False
+
+    cursor.execute("UPDATE COURSE SET INSTRUCTOR = ? WHERE CRN = ?", (instructor_email, courseCRN))
+    database.commit()
+    database.close()
+    return True
 
 # ------------------------------------------------------------------------- #
 

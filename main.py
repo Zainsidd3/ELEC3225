@@ -55,8 +55,8 @@ def main():
             print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove course from semester schedule\n4 - Check semester schedule\n5 - Check semester schedule for conflicts\n6 - Log Out\n7 - Quit")
         # Admin Selections
         elif (userType == "ADMIN"):
-            numSelections = 6
-            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove courses from system\n4 - Add/ Remove User(s)\n5 - Log Out\n6 - Quit")
+            numSelections = 8
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove courses from system\n4 - Add/ Remove User(s)\n5 - Link Student/instructor to course\n6 - Unlink Student/instructor to course\n7 - Log Out\n8 - Quit")
         # Instructor Selections
         elif (userType == "INSTRUCTOR"):
             numSelections = 5
@@ -116,16 +116,24 @@ def main():
                     loggedInUser.remove_account()
         elif (userInput == 5):
             if (userType == "STUDENT"):
-                #check semester schedule for conflicts
+                # Check semester schedule for conflicts
                 loggedInUser.check_for_conflicts()
-            elif (userType == "INSTRUCTOR"):
-                #quit
+            elif userType == "INSTRUCTOR":
+                # Quit
                 print("Exiting...")
                 quit()
             elif (userType == "ADMIN"):
-                #logout
-                print("Logging Out...")
-                defaultlogin(loggedInUser)
+                # Link a student or instructor to a course
+                print("1. Link a student to a course\n1 2. Link an instructor to a course")
+                admin_input = int(input("Enter the option number: "))
+
+                if admin_input == 1:
+                    loggedInUser.link_student_to_course()
+                elif admin_input == 2:
+                    loggedInUser.link_instructor_to_course()
+                else:
+                    print("Invalid option.")
+            
 
         elif (userInput == 6):
             #logout
@@ -134,13 +142,31 @@ def main():
                 defaultlogin(loggedInUser)
             #quit
             elif (userType == "ADMIN"):
-                print("Exiting...")
-                quit()
+                # Link a student or instructor to a course
+                print("1. UnLink a student to a course\n1 2. UnLink an instructor to a course")
+                admin_input = int(input("Enter your option: "))
+
+                if admin_input == 1:
+                    loggedInUser.Unlink_student_to_course()
+                elif admin_input == 2:
+                    loggedInUser.Unlink_instructor_to_course()
+                else:
+                     print("Invalid option.")
 
         elif (userInput == 7):
             #quit
             if (userType == "STUDENT"):
                 print("Exiting...")
                 quit()
-            
+
+            elif (userType == "ADMIN"):
+                    #logout
+                    print("Logging Out...")
+                    defaultlogin(loggedInUser)
+
+        elif (userInput == 8):
+            #quit
+            if (userType == "ADMIN"):
+                print("Exiting...")
+                quit()    
 main()

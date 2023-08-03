@@ -334,3 +334,40 @@ class admin(user):
     def remove_instructor_from_course(self):
         #remove an instructor from a course
         print("Called admin.remove_instructor_from_course()")
+
+    def link_student_to_course(self):
+        print("Link a student to a course")
+        student_email = input("Enter the student's email: ")
+        courseCRN = input("Enter the CRN of the course: ")
+
+        if link_student_to_course(student_email, courseCRN):
+            print("Student", student_email, "linked to course", courseCRN, "successfully.")
+        else:
+            print("Failed to link student to the course.")
+
+    def link_instructor_to_course(self):
+        print("Link an instructor to a course")
+        instructor_email = input("Enter the instructor's email: ")
+        courseCRN = input("Enter the CRN of the course: ")
+
+        if link_instructor_to_course(instructor_email, courseCRN):
+            print("Instructor", instructor_email, "linked to course", courseCRN, "successfully.")
+        else:
+            print("Failed to link instructor to the course.")
+    def unlink_student_from_course(self):
+        print("Unlink a student from a course")
+        courseCRN = input("Enter the CRN of the course: ")
+        if remove_from_roster(self.ID, courseCRN):
+            print("Student has been successfully unlinked from course #" + courseCRN + ".")
+        else:
+            print("An error occurred. Unable to unlink the student from course #" + courseCRN + ".")
+
+    def unlink_instructor_from_course(self):
+        print("Unlink an instructor from a course")
+        courseCRN = input("Enter the CRN of the course: ")
+        database = sqlite3.connect("database.db")
+        cursor = database.cursor()
+        cursor.execute("UPDATE COURSE SET INSTRUCTOR = NULL WHERE CRN = ?", (courseCRN,))
+        database.commit()
+        database.close()
+        print("Instructor has been successfully unlinked from course #" + courseCRN + ".")
