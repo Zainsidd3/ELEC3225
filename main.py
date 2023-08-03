@@ -4,11 +4,13 @@ from databaseFunctions import *
 database = sqlite3.connect("database.db")
 cursor = database.cursor()
 
+# logout current user and return to main
 def defaultlogin(loggedInUser):
     loggedInUser = user()
     main()
 
 def main():
+    #login loop
     while True:
         email = input("Enter your email address: ")
         password = input("Enter your password: ")
@@ -19,6 +21,7 @@ def main():
         else:
             print("Invalid email or password. Please try again.")
 
+    # find user type and pull their info from db
     tables = ["STUDENT", "ADMIN", "INSTRUCTOR"]
     for i in tables:
         query = "SELECT * FROM " + i + " WHERE EMAIL = '" + email + "'"
@@ -28,7 +31,7 @@ def main():
             userType = i
             break
 
-    #store all user info in object
+    #store all user info in object corresponding to user type
     loggedInUser = user()
     if (userType == "STUDENT"):
         loggedInUser = student()
@@ -40,6 +43,7 @@ def main():
     loggedInUser.set_id(userInfo[0][0])
     loggedInUser.set_first_name(userInfo[0][1])
     loggedInUser.set_last_name(userInfo[0][2])
+
     print("Welcome, " + userType + ":")
     loggedInUser.print_info()
 
@@ -124,14 +128,17 @@ def main():
                 defaultlogin(loggedInUser)
 
         elif (userInput == 6):
+            #logout
             if (userType == "STUDENT"):
                 print("Logging out...")
                 defaultlogin(loggedInUser)
+            #quit
             elif (userType == "ADMIN"):
                 print("Exiting...")
                 quit()
 
         elif (userInput == 7):
+            #quit
             if (userType == "STUDENT"):
                 print("Exiting...")
                 quit()

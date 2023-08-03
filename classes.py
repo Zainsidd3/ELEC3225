@@ -28,7 +28,9 @@ class user:
 
     def print_all_courses(self):
         #print course table
-        print_table("COURSE")
+        courses = get_table("COURSE")
+        for i in courses:
+            print(i)
 
     def search_for_course(self):
         print("Searching for course")
