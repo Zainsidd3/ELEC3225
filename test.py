@@ -85,6 +85,54 @@ class Tests(unittest.TestCase):
 
         self.assertTrue(studentFound)  # Check if the expected student ID is found in the roster
 
+    def test_get_table(self):
+        tableName = "COURSE"
+        expectedCRN = "001"
+
+        courses = get_table(tableName)
+        courseFound = False
+        for course in courses:
+            if expectedCRN in course:
+                courseFound = True
+                break
+        
+        self.assertTrue(courseFound)
+
+    def test_invalid_table(self):
+        tableName = "NOTATABLE"
+
+        with self.assertRaises(sqlite3.OperationalError):
+            get_table(tableName)
+
+    def test_conflicts(self):
+        ID = "10001"
+        semester = "Sp"
+        year = "2023"
+
+        self.assertTrue(check_schedule_for_conflicts(ID, semester, year))
+
+    def test_no_conflicts(self):
+        ID = "10001"
+        semester = "Su"
+        year = "2023"
+
+        self.assertFalse(check_schedule_for_conflicts(ID, semester, year))
+
+    def test_get_student_course_list(self):
+        ID = "10001"
+        semester = "Sp"
+        year = 2023
+
+        courseList = get_student_course_list(ID, semester, year)
+        self.assertTrue(len(courseList) > 0)
+
+    def test_0_student_course_list(self):
+        ID = "10001"
+        semester = "Sp"
+        year = 2025
+
+        courseList = get_student_course_list(ID, semester, year)
+        self.assertTrue(len(courseList) == 0)
 
 
 
