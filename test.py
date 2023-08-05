@@ -146,6 +146,13 @@ class Tests(unittest.TestCase):
     def test_remove_instructor(self):
         self.assertTrue(remove_account("testi"))
 
+    def test_instructor_class_list(self):
+        instructorEmail = "georgef"
+        semester = "Sp"
+        year = 2023
+        courses = get_instructor_course_list(instructorEmail, semester, year)
+        self.assertTrue(len(courses) > 0)
+
 
 if __name__ == '__main__':
     unittest.main()

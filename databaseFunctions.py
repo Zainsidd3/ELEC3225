@@ -151,6 +151,7 @@ def add_instructor(email, instructor_info, password):
         cursor.execute("INSERT INTO LOGINS (ID, PASSWORD) VALUES (?,?)", (email, password))
         database.commit()
         database.close()
+        return True
 
 # adds a student account to the system
 # email (string) - email for the new student
@@ -166,6 +167,7 @@ def add_student(email, student_info, password):
         cursor.execute("INSERT INTO LOGINS (ID, PASSWORD) VALUES (?,?)", (email, password))
         database.commit()
         database.close()
+        return True
 
 # removes an account from the system
 # email (string) - email of the account to remove from the system
@@ -187,6 +189,8 @@ def remove_account(email):
             cursor.execute("DELETE FROM LOGINS WHERE ID=?", (email,))
             database.commit()
             print("Student account removed successfully.")
+            database.close()
+            return True
 
         # Checks for INSTRUCTOR account
         elif instructor_count > 0:
@@ -198,11 +202,15 @@ def remove_account(email):
             cursor.execute("DELETE FROM LOGINS WHERE ID=?", (email,))
             database.commit()
             print("Instructor account removed successfully.")
+            database.close()
+            return True
 
         # No account found
         else:
             print("Email address not found...")
-        database.close()
+            database.close()
+            return False
+
 def link_student_to_course(student_email, courseCRN):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()

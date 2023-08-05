@@ -181,5 +181,4 @@ def main():
                 print("Exiting...")
                 quit()    
 
-print(get_instructor_course_list("georgef", "Sp", 2023))
 main()
