@@ -356,23 +356,6 @@ class admin(user):
         email = input("Enter the email address of the account you would like to remove: ")
         remove_account(email)
 
-
-    def add_student_to_course(self):
-        #add a student to a course
-        print("Called admin.add_student_to_course()")
-
-    def remove_student_from_course(self):
-        #remove a student from a course
-        print("Called admin.remove_student_from_course()")
-
-    def add_instructor_to_course(self):
-        #add an instructor to a course
-        print("Called admin.add_instructor_to_course()")
-
-    def remove_instructor_from_course(self):
-        #remove an instructor from a course
-        print("Called admin.remove_instructor_from_course()")
-
     def link_student_to_course(self):
         print("Link a student to a course")
         student_email = input("Enter the student's email: ")
