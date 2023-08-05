@@ -212,54 +212,45 @@ def remove_account(email):
             return False
 
 def link_student_to_course(student_email, courseCRN):
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
-
     # Check if the student exists
     if not check_email_exists(student_email):
         print("Student with email", student_email, "does not exist.")
-        database.close()
         return False
 
     # Check if the course exists
     if not check_if_course_exists(courseCRN):
         print("Course with CRN", courseCRN, "does not exist.")
-        database.close()
         return False
 
+    student_id = search("STUDENT", "EMAIL", student_email)[0][0]
     # Link student to course
-    if add_to_roster(student_email, courseCRN):
-        print("Student", student_email, "linked to course", courseCRN, "successfully.")
+    if add_to_roster(student_id, courseCRN):
+        return True
     else:
-        print("Failed to link student to the course.")
-    
-    database.close()
-    return True
+        return False
 
 def link_instructor_to_course(instructor_email, courseCRN):
-    database = sqlite3.connect("database.db")
-    cursor = database.cursor()
 
     # Check if the instructor exists
     if not check_email_exists(instructor_email):
         print("Email", instructor_email, "does not exist.")
-        database.close()
         return False
     
     if len(search("INSTRUCTOR", "EMAIL", instructor_email)) <= 0:
         print("Email", instructor_email, "does not belong to an instructor.")
-        database.close()
         return False
 
     # Check if the course exists
     if not check_if_course_exists(courseCRN):
         print("Course with CRN", courseCRN, "does not exist.")
-        database.close()
         return False
-
+    
+    database = sqlite3.connect("database.db")
+    cursor = database.cursor()
     cursor.execute("UPDATE COURSE SET INSTRUCTOR = ? WHERE CRN = ?", (instructor_email, courseCRN))
     database.commit()
     database.close()
+
     return True
 
 # ------------------------------------------------------------------------- #

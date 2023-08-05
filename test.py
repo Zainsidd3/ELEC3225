@@ -71,7 +71,7 @@ class Tests(unittest.TestCase):
 
     def test_print_roster_contains_student(self):
         courseCRN = "001"  # Replace with the desired course CRN to test
-        expectedStudentID = "10009"  # Replace with the expected student ID in the roster
+        expectedStudentID = "10012"  # Replace with the expected student ID in the roster
 
         students = print_roster(courseCRN)
         self.assertIsNotNone(students)  # Check if the roster is not None
@@ -153,6 +153,30 @@ class Tests(unittest.TestCase):
         courses = get_instructor_course_list(instructorEmail, semester, year)
         self.assertTrue(len(courses) > 0)
 
+    def test_link_student_to_course(self):
+        email = "mcfetridgee"
+        CRN = "016"
+
+        self.assertTrue(link_student_to_course(email, CRN))
+
+    def test_unlink_student_from_course(self):
+        ID = "10012"
+        CRN = "016"
+
+        self.assertTrue(remove_from_roster(ID, CRN))
+
+    def test_link_instructor_to_course(self):
+        email = "patrickn"
+        CRN = "016"
+
+        self.assertTrue(link_instructor_to_course(email, CRN))
+        database = sqlite3.connect("database.db")
+        
+        #unlink
+        cursor = database.cursor()
+        cursor.execute("UPDATE COURSE SET INSTRUCTOR = NULL WHERE CRN = ?", (CRN,))
+        database.commit()
+        database.close()
 
 if __name__ == '__main__':
     unittest.main()
