@@ -242,7 +242,12 @@ def link_instructor_to_course(instructor_email, courseCRN):
 
     # Check if the instructor exists
     if not check_email_exists(instructor_email):
-        print("Instructor with email", instructor_email, "does not exist.")
+        print("Email", instructor_email, "does not exist.")
+        database.close()
+        return False
+    
+    if len(search("INSTRUCTOR", "EMAIL", instructor_email)) <= 0:
+        print("Email", instructor_email, "does not belong to an instructor.")
         database.close()
         return False
 
