@@ -59,8 +59,8 @@ def main():
             print("1 - Display all courses\n2 - Search courses by parameter\n3 - Add/remove courses from system\n4 - Add/ Remove User(s)\n5 - Link Student/instructor to course\n6 - Unlink Student/instructor to course\n7 - Log Out\n8 - Quit")
         # Instructor Selections
         elif (userType == "INSTRUCTOR"):
-            numSelections = 5
-            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Assemble/Print Course Roster\n4 - Log Out\n5 - Quit")
+            numSelections = 6
+            print("1 - Display all courses\n2 - Search courses by parameter\n3 - Assemble/Print Course Roster\n4 - Print Semester Schedule\n5 - Log Out\n6 - Quit")
 
         userInput = ""
         # Get menu selection from user and check that it's valid
@@ -96,9 +96,8 @@ def main():
                 #print semester schedule
                 loggedInUser.print_schedule()
             elif (userType == "INSTRUCTOR"):
-                #logout
-                print("Logging Out...")
-                defaultlogin(loggedInUser)
+                #print semester schedule
+                loggedInUser.print_schedule()
             elif (userType == "ADMIN"):
                 #add/remove an account from system
                 choice = ""
@@ -118,21 +117,26 @@ def main():
             if (userType == "STUDENT"):
                 # Check semester schedule for conflicts
                 loggedInUser.check_for_conflicts()
-            elif userType == "INSTRUCTOR":
-                # Quit
-                print("Exiting...")
-                quit()
+            elif (userType == "INSTRUCTOR"):
+                #logout
+                print("Logging Out...")
+                defaultlogin(loggedInUser)
             elif (userType == "ADMIN"):
                 # Link a student or instructor to a course
-                print("1. Link a student to a course\n1 2. Link an instructor to a course")
-                admin_input = int(input("Enter the option number: "))
+                print("1. Link a student to a course\n2. Link an instructor to a course")
+                admin_input = ""
+                while type(admin_input) != int:
+                    try:
+                        admin_input = int(input("Enter your selection: "))
+                    except:
+                        print("Error: Input not an integer")
+                if (admin_input > 2) or (admin_input < 1):
+                    print("Error: Input out of range. Returning to main menu.")
 
                 if admin_input == 1:
                     loggedInUser.link_student_to_course()
                 elif admin_input == 2:
                     loggedInUser.link_instructor_to_course()
-                else:
-                    print("Invalid option.")
             
 
         elif (userInput == 6):
@@ -140,18 +144,25 @@ def main():
             if (userType == "STUDENT"):
                 print("Logging out...")
                 defaultlogin(loggedInUser)
-            #quit
+            elif userType == "INSTRUCTOR":
+                # Quit
+                print("Exiting...")
+                quit()
             elif (userType == "ADMIN"):
                 # Link a student or instructor to a course
-                print("1. UnLink a student to a course\n1 2. UnLink an instructor to a course")
-                admin_input = int(input("Enter your option: "))
-
+                print("1. Unlink a student to a course\n2. Unlink an instructor from a course")
+                admin_input = ""
+                while type(admin_input) != int:
+                    try:
+                        admin_input = int(input("Enter your selection: "))
+                    except:
+                        print("Error: Input not an integer")
+                if (admin_input > 2) or (admin_input < 1):
+                    print("Error: Input out of range. Returning to main menu.")
                 if admin_input == 1:
-                    loggedInUser.Unlink_student_to_course()
+                    loggedInUser.unlink_student_from_course()
                 elif admin_input == 2:
-                    loggedInUser.Unlink_instructor_to_course()
-                else:
-                     print("Invalid option.")
+                    loggedInUser.unlink_instructor_from_course()
 
         elif (userInput == 7):
             #quit
@@ -169,4 +180,6 @@ def main():
             if (userType == "ADMIN"):
                 print("Exiting...")
                 quit()    
+
+print(get_instructor_course_list("georgef", "Sp", 2023))
 main()

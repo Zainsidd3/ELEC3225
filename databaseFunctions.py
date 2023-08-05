@@ -61,6 +61,7 @@ def search(table, attribute, query):
 
     return query_result
 
+
 # ------------------------------------------------------------------------- #
 
 # ---------------------------- ADMIN FUNCTIONS ---------------------------- #
@@ -292,16 +293,16 @@ def print_roster(courseCRN):
     database.close()
     return students
 
-# returns a list of all classes the instructor is teaching [[CRN, DAYS, TIME], ...]
-# instructorID (string) - the ID of the instructor to check
+# returns a list of all classes the instructor is teaching [[CRN, [DAYS], [StartTime, EndTime]], ...]
+# instructorID (string) - the email of the instructor to check
 # semester (string) - expecting Sp, Su, or F (Spring, Summer, Fall)
 # year (int) - the year of the schedule to check
-def get_instructor_course_list(instructorID, semester, year):
+def get_instructor_course_list(instructorEmail, semester, year):
     database = sqlite3.connect("database.db")
     cursor = database.cursor()
-    cursor.execute("SELECT CRN, DAYS, TIME FROM COURSE WHERE INSTRUCTOR = '" + instructorID + "' AND SEMESTER = '" + semester + "' AND YEAR = '" + str(year) + "'")
+    cursor.execute("SELECT TITLE, TIME, DAYS FROM COURSE WHERE INSTRUCTOR = '" + instructorEmail + "' AND SEMESTER = '" + semester + "' AND YEAR = '" + str(year) + "'")
     courses = cursor.fetchall()
-    
+
     database.close()
     return courses
 

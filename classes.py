@@ -161,7 +161,6 @@ class instructor(user):
     def print_class_list(self):
         print("1 - Print the course roster of a specific course\n2 - Go back to the main menu")
 
-
         userInput = 0
         while userInput > 2 or userInput < 1:
             try:
@@ -180,9 +179,48 @@ class instructor(user):
                     print(student)
             return []
     
-    def print_schedule():
+    def print_schedule(self):
         #print the instructor's teaching schedule
-        print("Called instructor.print_schedule()")
+        semester = ""
+        while (semester != "Su" and semester != "Sp" and semester != "F"):
+            semester = str(input("Enter the semester (Su = Summer, Sp = Spring, F = Fall, case sensitive): "))
+            if (semester != "Su" and semester != "Sp" and semester != "F"):
+                print("Invalid input, please try again.")
+        year = 0
+        while (year <= 0):
+            try:
+                year = int(input("Enter year: "))
+            except:
+                print("Input not an int, please try again.")
+                continue
+            if (year <= 0):
+                print("Invalid input, please try again.")
+        email = search("INSTRUCTOR", "ID", str(self.ID))[0][6]
+        schedule = get_instructor_course_list(email, semester, year)
+        print(schedule)
+        if (len(schedule) == 0):
+            print("Not teaching any classes in the " + str(year) + " " + semester + " semester.")
+            return
+        mondayCourses = []
+        tuesdayCourses = []
+        wednesdayCourses = []
+        thursdayCourses = []
+        fridayCourses = []
+        dayCourses = [mondayCourses, tuesdayCourses, wednesdayCourses, thursdayCourses, fridayCourses]
+        days = ["M", "T", "W", "R", "F"]
+        for i in schedule:
+            for j in range(len(days)):
+                if days[j] in i[2]:
+                    dayCourses[j].append(i[0] + "; Time: " + i[1])
+
+        for i in range(len(days)):
+            if (len(dayCourses[i]) == 0):
+                print("No courses on " + days[i] + ".")
+                continue
+            print(days[i] + " Schedule:") 
+            for j in dayCourses[i]:
+                print(j)
+        return
 
 class admin(user):
     def modify_course(self):
